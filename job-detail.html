@@ -217,6 +217,7 @@ if (!window.__hirebirdInitialized) {
       <div class="field" style="margin-bottom:12px;"><label style="display:block;font-size:12px;font-weight:600;color:var(--dark);margin-bottom:6px;">Qualification</label><input type="text" id="post-qualification" placeholder="Entry Level" value="${esc(j.qualification)}" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:11px 12px;font-size:14px;font-family:inherit;"></div>
       <div class="field" style="margin-bottom:12px;"><label style="display:block;font-size:12px;font-weight:600;color:var(--dark);margin-bottom:6px;">Functional area</label><input type="text" id="post-functional-area" placeholder="Advertisement" value="${esc(j.functional_area)}" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:11px 12px;font-size:14px;font-family:inherit;"></div>
       <div class="field" style="margin-bottom:12px;"><label style="display:block;font-size:12px;font-weight:600;color:var(--dark);margin-bottom:6px;">Degree level</label><input type="text" id="post-degree-level" placeholder="Short Course" value="${esc(j.degree_level)}" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:11px 12px;font-size:14px;font-family:inherit;"></div>
+      <div class="field" style="margin-bottom:12px;"><label style="display:block;font-size:12px;font-weight:600;color:var(--dark);margin-bottom:6px;">Company logo (optional)</label>${j.logo_url ? `<div style="margin-bottom:8px;"><img src="${esc(j.logo_url)}" alt="Current logo" style="width:56px;height:56px;object-fit:cover;border-radius:10px;"><div style="font-size:12px;color:var(--text);margin-top:4px;">Current logo — upload a new file to replace it.</div></div>` : ''}<input type="file" id="post-logo-file" accept="image/*" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:11px 12px;font-size:14px;font-family:inherit;"></div>
       <div class="field" style="margin-bottom:12px;"><label style="display:block;font-size:12px;font-weight:600;color:var(--dark);margin-bottom:6px;">External application link</label><input type="url" id="post-apply-url" placeholder="https://yoursite.com/apply/job-name" value="${esc(j.apply_url)}" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:11px 12px;font-size:14px;font-family:inherit;"></div>
       <div class="field" style="margin-bottom:12px;"><label style="display:block;font-size:12px;font-weight:600;color:var(--dark);margin-bottom:6px;">Posted date (optional — leave blank for today)</label><input type="date" id="post-posted-date" value="${postedDateVal}" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:11px 12px;font-size:14px;font-family:inherit;"></div>
       <div class="field" style="margin-bottom:12px;"><label style="display:block;font-size:12px;font-weight:600;color:var(--dark);margin-bottom:6px;">Full description</label><textarea id="post-description" rows="8" placeholder="Use blank lines between sections. Start a line with '## ' for a heading, and '- ' for a bullet point." style="width:100%;border:1px solid var(--border);border-radius:8px;padding:11px 12px;font-size:14px;font-family:inherit;">${j.description ? j.description.replace(/</g,'&lt;') : ''}</textarea></div>
@@ -346,6 +347,18 @@ if (!window.__hirebirdInitialized) {
   async function handleSignOut(){ if(!sb) return; await sb.auth.signOut(); currentSession = null; updateNav(); loadJob(); }
   function handlePostClick(){ if(currentSession){ openPostModal(null); } else { openModal('signin'); } }
 
+  async function uploadLogoIfProvided(){
+    const fileInput = document.getElementById('post-logo-file');
+    const file = fileInput && fileInput.files[0];
+    if(!file) return null;
+    const ext = file.name.split('.').pop();
+    const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+    const { error: uploadError } = await sb.storage.from('job-logos').upload(path, file);
+    if(uploadError){ console.error('Logo upload failed:', uploadError); return null; }
+    const { data } = sb.storage.from('job-logos').getPublicUrl(path);
+    return data.publicUrl;
+  }
+
   async function handlePostJob(){
     if(!sb){ setModalMessage('Backend isn\'t connected yet.'); return; }
     if(!currentSession){ setModalMessage('Please sign in first.'); return; }
@@ -368,9 +381,11 @@ if (!window.__hirebirdInitialized) {
     if(!company || !title || !apply_url){ setModalMessage('Company, job title, and application link are required.'); return; }
     const tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [];
 
+    const logoUrl = await uploadLogoIfProvided();
     const payload = {
       title, company, location, pay, job_type, tags, apply_url,
-      description, industry, experience, qualification, functional_area, degree_level, posted_at
+      description, industry, experience, qualification, functional_area, degree_level, posted_at,
+      ...(logoUrl ? { logo_url: logoUrl } : {})
     };
 
     if(editingJobId){
@@ -434,6 +449,7 @@ if (!window.__hirebirdInitialized) {
     const tags = (job.tags && job.tags.length ? job.tags : [job.job_type].filter(Boolean));
     const tagPills = tags.map((t,i) => `<span class="job-tag-pill${i>0?' alt':''}">${t}</span>`).join('');
     const logoLetter = (job.company || '?').trim().charAt(0).toUpperCase();
+    const logoInner = job.logo_url ? `<img src="${job.logo_url}" alt="${job.company}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">` : logoLetter;
 
     document.title = `${job.title} — HireBird`;
 
@@ -449,10 +465,10 @@ if (!window.__hirebirdInitialized) {
         <div>
           ${adminBar}
           <div class="tag-row">${tagPills}</div>
-          <div class="banner-logo"><div class="letter">${logoLetter}</div></div>
+          <div class="banner-logo"><div class="letter">${logoInner}</div></div>
           <div class="job-top">
             <div class="job-top-left">
-              <div class="small-logo">${logoLetter}</div>
+              <div class="small-logo">${logoInner}</div>
               <h1>${job.title}</h1>
               <div class="job-meta-line">
                 <span class="company-name">${job.company}</span>
@@ -482,7 +498,7 @@ if (!window.__hirebirdInitialized) {
           ${tags.length ? `<div class="side-card"><h4>Job Tags</h4><div class="tag-row">${tags.map(t=>`<span class="job-tag-pill">${t}</span>`).join('')}</div></div>` : ''}
 
           <div class="side-card company-card">
-            <div class="small-logo">${logoLetter}</div>
+            <div class="small-logo">${logoInner}</div>
             <div class="company-title">${job.company}</div>
             <div class="company-loc">📍 ${job.location || 'Remote'}</div>
             <a class="btn btn-outline btn-block" href="${job.apply_url}" target="_blank" rel="noopener" onclick="logClick('${job.id}')">Apply Now</a>

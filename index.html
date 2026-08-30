@@ -429,6 +429,7 @@ if (!window.__hirebirdInitialized) {
             <div class="field"><label>Qualification</label><input type="text" id="post-qualification" placeholder="Entry Level"></div>
             <div class="field"><label>Functional area</label><input type="text" id="post-functional-area" placeholder="Advertisement"></div>
             <div class="field"><label>Degree level</label><input type="text" id="post-degree-level" placeholder="Short Course"></div>
+            <div class="field"><label>Company logo (optional)</label><input type="file" id="post-logo-file" accept="image/*"></div>
             <div class="field"><label>External application link</label><input type="url" id="post-apply-url" placeholder="https://yoursite.com/apply/job-name"></div>
             <div class="field"><label>Posted date (optional — leave blank for today)</label><input type="date" id="post-posted-date"></div>
             <div class="field"><label>Full description</label><textarea id="post-description" rows="8" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:11px 12px;font-size:14px;font-family:inherit;" placeholder="Use blank lines between sections. Start a line with '## ' for a heading, and '- ' for a bullet point."></textarea></div>
@@ -556,6 +557,18 @@ if (!window.__hirebirdInitialized) {
   }
 
   // ---- Jobs ----
+  async function uploadLogoIfProvided(){
+    const fileInput = document.getElementById('post-logo-file');
+    const file = fileInput && fileInput.files[0];
+    if(!file) return null;
+    const ext = file.name.split('.').pop();
+    const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+    const { error: uploadError } = await sb.storage.from('job-logos').upload(path, file);
+    if(uploadError){ console.error('Logo upload failed:', uploadError); return null; }
+    const { data } = sb.storage.from('job-logos').getPublicUrl(path);
+    return data.publicUrl;
+  }
+
   async function handlePostJob(){
     if(!sb){ setModalMessage('Backend isn\'t connected yet — add your Supabase URL and key to the code.'); return; }
     if(!currentSession){ setModalMessage('Please sign in first.'); return; }
@@ -580,10 +593,12 @@ if (!window.__hirebirdInitialized) {
       return;
     }
     const tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [];
+    const logoUrl = await uploadLogoIfProvided();
 
     const { error } = await sb.from('jobs').insert({
       title, company, location, pay, job_type, tags, apply_url,
-      description, industry, experience, qualification, functional_area, degree_level, posted_at
+      description, industry, experience, qualification, functional_area, degree_level, posted_at,
+      ...(logoUrl ? { logo_url: logoUrl } : {})
     });
     if(error){ setModalMessage(error.message); return; }
     closeModal();
@@ -604,6 +619,7 @@ if (!window.__hirebirdInitialized) {
   function jobCardHTML(job, index, arr){
     const tags = (job.tags || []).map(t => `<span class="job-tag">${t}</span>`).join('');
     const logoLetter = (job.company || '?').trim().charAt(0).toUpperCase();
+    const logoInner = job.logo_url ? `<img src="${job.logo_url}" alt="${job.company}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">` : logoLetter;
     const total = arr.length;
     const reorderControls = currentSession ? `
       <div style="display:flex;gap:6px;">
@@ -612,7 +628,7 @@ if (!window.__hirebirdInitialized) {
       </div>` : '';
     return `
       <div class="job-card">
-        <div class="job-card-top"><div class="job-logo">${logoLetter}</div><div style="display:flex;align-items:center;gap:10px;"><div class="job-time">${timeAgo(job.posted_at || job.created_at)}</div>${reorderControls}</div></div>
+        <div class="job-card-top"><div class="job-logo">${logoInner}</div><div style="display:flex;align-items:center;gap:10px;"><div class="job-time">${timeAgo(job.posted_at || job.created_at)}</div>${reorderControls}</div></div>
         <h3><a href="job-detail.html?id=${job.id}">${job.title}</a></h3>
         <div class="job-company">${job.company} · ${job.location || 'Remote'}</div>
         <div class="job-tags">${tags}</div>
