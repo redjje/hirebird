@@ -498,6 +498,23 @@ if (!window.__hirebirdInitialized) {
     } catch(e) { console.error('Click logging failed:', e); }
   }
 
+  async function logPageView(page){
+    if(!sb) return;
+    try {
+      const device_type = detectDevice();
+      const browser = detectBrowser();
+      const referrer = document.referrer || null;
+      let country = null;
+      try {
+        const geoRes = await fetch('https://ipwho.is/');
+        const geoData = await geoRes.json();
+        if(geoData && geoData.success !== false) country = geoData.country || null;
+      } catch(geoErr) { /* geo lookup failed, log view without country */ }
+
+      await sb.from('page_views').insert({ page, device_type, browser, country, referrer });
+    } catch(e) { console.error('Page view logging failed:', e); }
+  }
+
   function openApplyGate(jobId, applyUrl){
     pendingApply = { jobId, applyUrl };
     document.getElementById('modal-body').innerHTML = `
@@ -725,6 +742,7 @@ if (!window.__hirebirdInitialized) {
 
   checkAuth();
   loadJobs();
+  logPageView('home');
 }
 </script>
 

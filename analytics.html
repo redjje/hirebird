@@ -139,6 +139,28 @@
       <p>Clicks on "Apply" across every job posting.</p>
     </div>
 
+    <h2 style="font-size:20px;margin-bottom:16px;">Homepage traffic</h2>
+    <div class="stat-row">
+      <div class="stat-box"><div class="num" id="stat-total-views">–</div><div class="label">Total homepage visits</div></div>
+      <div class="stat-box"><div class="num" id="stat-views-week">–</div><div class="label">Visits in the last 7 days</div></div>
+      <div class="stat-box"><div class="num" id="stat-views-today">–</div><div class="label">Visits today</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:50px;">
+      <div class="table-wrap" style="margin-bottom:0;">
+        <table>
+          <thead><tr><th>Country</th><th>Visits</th></tr></thead>
+          <tbody id="view-breakdown-country"><tr><td colspan="2" style="text-align:center;color:var(--text);">Loading…</td></tr></tbody>
+        </table>
+      </div>
+      <div class="table-wrap" style="margin-bottom:0;">
+        <table>
+          <thead><tr><th>Referrer</th><th>Visits</th></tr></thead>
+          <tbody id="view-breakdown-referrer"><tr><td colspan="2" style="text-align:center;color:var(--text);">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 style="font-size:20px;margin-bottom:16px;">Job listings & applies</h2>
     <div class="stat-row" style="grid-template-columns:repeat(4,1fr);">
       <div class="stat-box"><div class="num" id="stat-total-clicks">–</div><div class="label">Total apply clicks</div></div>
       <div class="stat-box"><div class="num" id="stat-total-jobs">–</div><div class="label">Jobs posted</div></div>
@@ -298,6 +320,7 @@ if (!window.__hirebirdInitialized) {
     const { data: jobs, error: jobsError } = await sb.from('jobs').select('*').order('created_at', { ascending: false });
     const { data: clicks, error: clicksError } = await sb.from('job_clicks').select('*');
     const { data: leads, error: leadsError } = await sb.from('leads').select('*').order('created_at', { ascending: false });
+    const { data: views, error: viewsError } = await sb.from('page_views').select('*');
 
     if(jobsError || clicksError){
       tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--text);">Couldn't load analytics — check your Supabase policies.</td></tr>`;
@@ -307,8 +330,11 @@ if (!window.__hirebirdInitialized) {
     const jobList = jobs || [];
     const clickList = clicks || [];
     const leadList = leads || [];
+    const viewList = views || [];
     window.__leadList = leadList;
     window.__jobList = jobList;
+
+    renderPageViews(viewList, viewsError);
 
     // Count clicks per job
     const clickCounts = {};
@@ -344,6 +370,57 @@ if (!window.__hirebirdInitialized) {
     renderBreakdown('breakdown-device', clickList, 'device_type');
     renderBreakdown('breakdown-browser', clickList, 'browser');
     renderLeads(leadList, jobList, leadsError);
+  }
+
+  function renderPageViews(viewList, viewsError){
+    const totalEl = document.getElementById('stat-total-views');
+    const weekEl = document.getElementById('stat-views-week');
+    const todayEl = document.getElementById('stat-views-today');
+    const countryTbody = document.getElementById('view-breakdown-country');
+    const referrerTbody = document.getElementById('view-breakdown-referrer');
+
+    if(viewsError){
+      totalEl.textContent = '–';
+      weekEl.textContent = '–';
+      todayEl.textContent = '–';
+      countryTbody.innerHTML = `<tr><td colspan="2" style="text-align:center;color:var(--text);">Couldn't load — has the page_views table been created?</td></tr>`;
+      referrerTbody.innerHTML = `<tr><td colspan="2" style="text-align:center;color:var(--text);">Couldn't load — has the page_views table been created?</td></tr>`;
+      return;
+    }
+
+    const homeViews = viewList.filter(v => v.page === 'home');
+    const weekAgo = Date.now() - 7 * 86400000;
+    const todayStart = new Date(); todayStart.setHours(0,0,0,0);
+
+    totalEl.textContent = homeViews.length;
+    weekEl.textContent = homeViews.filter(v => new Date(v.viewed_at).getTime() >= weekAgo).length;
+    todayEl.textContent = homeViews.filter(v => new Date(v.viewed_at).getTime() >= todayStart.getTime()).length;
+
+    renderBreakdownGeneric(countryTbody, homeViews, 'country');
+
+    const referrerCounts = {};
+    homeViews.forEach(v => {
+      let ref = v.referrer;
+      if(!ref) ref = 'Direct / none';
+      else { try { ref = new URL(ref).hostname; } catch(e) { /* keep raw value */ } }
+      referrerCounts[ref] = (referrerCounts[ref] || 0) + 1;
+    });
+    const refEntries = Object.entries(referrerCounts).sort((a,b) => b[1] - a[1]);
+    referrerTbody.innerHTML = refEntries.length === 0
+      ? `<tr><td colspan="2" style="text-align:center;color:var(--text);">No data yet.</td></tr>`
+      : refEntries.map(([key, count]) => `<tr><td>${key}</td><td class="clicks-badge">${count}</td></tr>`).join('');
+  }
+
+  function renderBreakdownGeneric(tbody, list, field){
+    const counts = {};
+    list.forEach(item => {
+      const key = item[field] || 'Unknown';
+      counts[key] = (counts[key] || 0) + 1;
+    });
+    const entries = Object.entries(counts).sort((a,b) => b[1] - a[1]);
+    tbody.innerHTML = entries.length === 0
+      ? `<tr><td colspan="2" style="text-align:center;color:var(--text);">No data yet.</td></tr>`
+      : entries.map(([key, count]) => `<tr><td>${key}</td><td class="clicks-badge">${count}</td></tr>`).join('');
   }
 
   function renderLeads(leadList, jobList, leadsError){
