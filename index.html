@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>HireBird — Job Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a1e42;
+    --blue:#2557a7;
+    --blue-light:#eaf1fb;
+    --accent:#ff6b35;
+    --text:#5c6b82;
+    --dark:#1b2942;
+    --border:#e7ebf3;
+    --bg:#f7f9fc;
+    --radius:12px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Inter',sans-serif;color:var(--text);background:#fff;line-height:1.6;}
+  h1,h2,h3,h4{font-family:'Poppins',sans-serif;color:var(--dark);margin:0;}
+  a{text-decoration:none;color:inherit;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  img{max-width:100%;display:block;}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;font-weight:600;font-size:14px;border:none;cursor:pointer;}
+  .btn-accent{background:var(--accent);color:#fff;}
+  .btn-accent:hover{background:#e85a29;}
+  .btn-outline{border:1.5px solid var(--border);color:var(--dark);background:#fff;}
+  .btn-outline:hover{border-color:var(--blue);}
+  .btn-block{width:100%;justify-content:center;}
+
+  /* TOPBAR */
+  .topbar{background:var(--navy);color:#c9d3e6;font-size:13px;padding:8px 0;}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+  .topbar .contact{display:flex;gap:22px;flex-wrap:wrap;}
+  .topbar a{color:#c9d3e6;}
+  .topbar .social{display:flex;gap:14px;}
+
+  /* NAV */
+  header.main{border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;z-index:50;}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0;}
+  .logo{font-family:'Poppins',sans-serif;font-weight:800;font-size:22px;color:var(--navy);display:flex;align-items:center;gap:8px;}
+  .logo span{color:var(--accent);}
+  .nav-links{display:flex;gap:30px;font-weight:500;font-size:15px;color:var(--dark);}
+  .nav-links a:hover{color:var(--blue);}
+  .nav-right{display:flex;gap:14px;align-items:center;}
+  .nav-toggle{display:none;background:none;border:1px solid var(--border);border-radius:8px;padding:8px 10px;cursor:pointer;font-size:18px;color:var(--dark);}
+  @media(max-width:900px){
+    .nav-links{
+      display:none;flex-direction:column;gap:0;position:absolute;top:100%;left:0;right:0;
+      background:#fff;border-bottom:1px solid var(--border);padding:8px 24px 16px;
+    }
+    .nav-links.open{display:flex;}
+    .nav-links a{padding:12px 0;border-bottom:1px solid var(--border);}
+    .nav-links a:last-child{border-bottom:none;}
+    .nav-toggle{display:inline-flex;}
+  }
+
+  /* HERO */
+  .hero{background:var(--blue-light);padding:60px 0 70px;overflow:hidden;}
+  .hero-grid{display:block;}
+  .hero-eyebrow{display:inline-block;background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 16px;font-size:13px;font-weight:600;color:var(--blue);margin-bottom:18px;}
+  .hero h1{font-size:clamp(32px,4.2vw,50px);line-height:1.15;font-weight:800;}
+  .hero h1 em{color:var(--accent);font-style:normal;}
+  .hero p{font-size:16px;margin:18px 0 26px;max-width:46ch;}
+
+  /* SEARCH PANEL */
+  .search-panel{
+    background:#fff;border-radius:14px;box-shadow:0 20px 50px -20px rgba(10,30,66,0.25);
+    padding:22px;display:grid;grid-template-columns:1.3fr 1fr 1fr auto;gap:14px;
+    margin:40px auto 0;position:relative;z-index:5;
+  }
+  @media(max-width:860px){.search-panel{grid-template-columns:1fr;margin-top:24px;}}
+  .field label{display:block;font-size:12px;font-weight:600;color:var(--dark);margin-bottom:6px;}
+  .field select,.field input{width:100%;border:1px solid var(--border);border-radius:8px;padding:11px 12px;font-size:14px;font-family:inherit;color:var(--dark);background:#fff;}
+  .field select:focus,.field input:focus{outline:2px solid var(--blue);outline-offset:1px;}
+
+  /* STATS */
+  .stats{padding:50px 0;}
+  .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center;}
+  @media(max-width:760px){.stats-grid{grid-template-columns:1fr;}}
+  .stat-icon{width:52px;height:52px;border-radius:50%;background:var(--blue-light);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:22px;}
+  .stat-num{font-family:'Poppins',sans-serif;font-weight:800;font-size:28px;color:var(--navy);}
+  .stat-label{font-size:14px;color:var(--text);}
+
+  section{padding:60px 0;}
+  .section-head{text-align:center;max-width:600px;margin:0 auto 40px;}
+  .eyebrow-small{color:var(--accent);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.06em;}
+  .section-head h2{font-size:32px;margin-top:10px;}
+
+  /* CATEGORIES */
+  .cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  @media(max-width:900px){.cat-grid{grid-template-columns:repeat(2,1fr);}}
+  .cat-card{border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;transition:.15s;display:block;}
+  .cat-card:hover{border-color:var(--blue);box-shadow:0 12px 30px -18px rgba(10,30,66,0.3);transform:translateY(-3px);}
+  .cat-icon{width:48px;height:48px;border-radius:50%;background:var(--blue-light);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+  .cat-card h3{font-size:16px;}
+  .cat-count{font-size:13px;color:var(--text);margin-top:4px;}
+
+  /* BANNER */
+  .banner{background:var(--navy);border-radius:20px;padding:50px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:24px;color:#fff;}
+  @media(max-width:760px){.banner{grid-template-columns:1fr;text-align:center;}}
+  .banner h2{color:#fff;font-size:28px;}
+  .banner p{color:#b9c4dd;margin-top:10px;max-width:50ch;}
+
+  /* JOB CARDS */
+  .job-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:900px){.job-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:640px){.job-grid{grid-template-columns:1fr;}}
+  .job-card{border:1px solid var(--border);border-radius:var(--radius);padding:22px;transition:.15s;}
+  .job-card:hover{box-shadow:0 14px 34px -20px rgba(10,30,66,0.3);border-color:var(--blue);}
+  .job-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
+  .job-logo{width:46px;height:46px;border-radius:10px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-weight:700;color:var(--blue);}
+  .job-time{font-size:12px;color:var(--text);}
+  .job-card h3{font-size:16px;margin-bottom:6px;}
+  .job-company{font-size:13px;color:var(--text);margin-bottom:12px;}
+  .job-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+  .job-tag{font-size:11px;border:1px solid var(--border);border-radius:999px;padding:3px 10px;color:var(--text);}
+  .job-card-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:14px;}
+  .job-pay{font-weight:700;color:var(--navy);font-size:14.5px;}
+
+  /* TESTIMONIALS */
+  .t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:860px){.t-grid{grid-template-columns:1fr;}}
+  .t-card{border:1px solid var(--border);border-radius:var(--radius);padding:26px;}
+  .quote-mark{font-family:'Poppins',sans-serif;font-size:36px;color:var(--blue-light);font-weight:800;line-height:1;}
+  .t-card p{font-size:14.5px;margin:10px 0 18px;}
+  .t-person{display:flex;align-items:center;gap:12px;}
+  .t-avatar{width:42px;height:42px;border-radius:50%;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);font-size:14px;}
+  .t-name{font-weight:700;font-size:14px;color:var(--dark);}
+  .t-role{font-size:12.5px;color:var(--text);}
+
+  /* BLOG */
+  .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:860px){.blog-grid{grid-template-columns:1fr;}}
+  .blog-card{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .blog-img{height:150px;background:var(--blue-light);}
+  .blog-body{padding:18px;}
+  .blog-date{font-size:12px;color:var(--accent);font-weight:600;}
+  .blog-card h3{font-size:16px;margin:8px 0;}
+
+  /* FOOTER */
+  footer{background:var(--navy);color:#b9c4dd;padding:56px 0 24px;margin-top:20px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:32px;margin-bottom:36px;}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr;}}
+  .foot-col h4{color:#fff;font-size:14px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .foot-col a{display:block;margin-bottom:10px;font-size:14px;}
+  .foot-col a:hover{color:#fff;}
+  .foot-logo{font-family:'Poppins',sans-serif;font-weight:800;font-size:20px;color:#fff;margin-bottom:12px;}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,0.12);padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px;}
+
+  /* MODAL */
+  .modal-backdrop{position:fixed;inset:0;background:rgba(10,20,42,0.55);display:none;align-items:center;justify-content:center;z-index:200;padding:20px;}
+  .modal-backdrop.open{display:flex;}
+  .modal{background:#fff;border-radius:14px;padding:28px;max-width:420px;width:100%;max-height:88vh;overflow-y:auto;}
+  .modal h3{font-size:20px;margin-bottom:6px;}
+  .modal p{font-size:14px;margin:0 0 18px;}
+  .modal .field{margin-bottom:12px;}
+  .modal-close{float:right;background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="contact">
+      <span>65 Sunset Ave, CA 90026</span>
+      <span>support@hirebird.co</span>
+    </div>
+    <div class="social">
+      <a href="#">Facebook</a><a href="#">X</a><a href="#">LinkedIn</a>
+    </div>
+  </div>
+</div>
+
+<header class="main">
+  <div class="wrap">
+    <nav>
+      <a class="logo" href="index.html">
+        <svg width="26" height="26" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+          <path d="M2 25C7 15 15 9 23 11C25 6 32 3 38 6C32 9 28 15 24 17C21 24 14 27 7 26C5 26 3 25.5 2 25Z" fill="#ff6b35"/>
+          <circle cx="31" cy="9" r="1.7" fill="#0a1e42"/>
+        </svg>
+        <span style="display:flex;">Hire<span style="color:var(--accent);">Bird</span></span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="#categories">Categories</a>
+        <a href="#stories">Stories</a>
+        <a href="#blog">Blog</a>
+      </div>
+      <div class="nav-right">
+        <button class="nav-toggle" onclick="toggleNavMenu()" aria-label="Toggle menu">☰</button>
+        <a href="analytics.html" id="nav-analytics-link" style="display:none;font-weight:600;font-size:14px;color:var(--dark);margin-right:6px;">Analytics</a>
+        <a class="btn btn-outline" href="#" id="nav-signin-btn" onclick="handleSignInClick();return false;">Sign in</a>
+        <a class="btn btn-accent" href="#" onclick="handlePostClick();return false;">Post a job</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div style="max-width:640px;margin:0 auto;text-align:center;">
+        <span class="hero-eyebrow">🐦 12,400+ live listings</span>
+        <h1>Your dream <em>remote</em> job, in one place.</h1>
+        <p style="margin-left:auto;margin-right:auto;">HireBird gathers flexible, work-from-anywhere jobs the moment they open — remote roles, freelance gigs, and side-income work, refreshed daily.</p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;">
+          <a class="btn btn-accent" href="#board">Get started</a>
+          <a class="btn btn-outline" href="#" onclick="handlePostClick();return false;">Post a job</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="search-panel">
+      <div class="field">
+        <label for="cat">Category</label>
+        <select id="cat">
+          <option>Select category</option>
+          <option>Customer Service</option>
+          <option>Content & Writing</option>
+          <option>Marketing</option>
+          <option>Data & Surveys</option>
+          <option>Admin & Support</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="type">Job type</label>
+        <select id="type">
+          <option>Select type</option>
+          <option>Full time</option>
+          <option>Part time</option>
+          <option>Freelance</option>
+          <option>Contract</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="loc">Location</label>
+        <select id="loc">
+          <option>Select city</option>
+          <option>Remote</option>
+          <option>United States</option>
+          <option>Worldwide</option>
+        </select>
+      </div>
+      <div class="field" style="display:flex;align-items:flex-end;">
+        <button class="btn btn-accent btn-block" onclick="document.getElementById('board').scrollIntoView({behavior:'smooth'})">Find Jobs</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div><div class="stat-icon">🏢</div><div class="stat-num">12K+</div><div class="stat-label">Companies hiring</div></div>
+      <div><div class="stat-icon">🌍</div><div class="stat-num">96+</div><div class="stat-label">Countries reached</div></div>
+      <div><div class="stat-icon">✅</div><div class="stat-num">41,000+</div><div class="stat-label">People placed</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="categories">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow-small">Choose your category</div>
+      <h2>Jobs by category</h2>
+    </div>
+    <div class="cat-grid">
+      <a class="cat-card" href="jobs.html?category=Customer%20Service"><div class="cat-icon">💬</div><h3>Customer Service</h3><div class="cat-count" id="cat-count-customer-service">– jobs</div></a>
+      <a class="cat-card" href="jobs.html?category=Content%20%26%20Writing"><div class="cat-icon">✍️</div><h3>Content & Writing</h3><div class="cat-count" id="cat-count-content-writing">– jobs</div></a>
+      <a class="cat-card" href="jobs.html?category=Marketing"><div class="cat-icon">📣</div><h3>Marketing</h3><div class="cat-count" id="cat-count-marketing">– jobs</div></a>
+      <a class="cat-card" href="jobs.html?category=Data%20%26%20Surveys"><div class="cat-icon">📊</div><h3>Data & Surveys</h3><div class="cat-count" id="cat-count-data-surveys">– jobs</div></a>
+      <a class="cat-card" href="jobs.html?category=Admin%20%26%20Support"><div class="cat-icon">🗂️</div><h3>Admin & Support</h3><div class="cat-count" id="cat-count-admin-support">– jobs</div></a>
+      <a class="cat-card" href="jobs.html?category=Design"><div class="cat-icon">🎨</div><h3>Design</h3><div class="cat-count" id="cat-count-design">– jobs</div></a>
+      <a class="cat-card" href="jobs.html?category=Sales"><div class="cat-icon">💼</div><h3>Sales</h3><div class="cat-count" id="cat-count-sales">– jobs</div></a>
+      <a class="cat-card" href="jobs.html?category=Fully%20Remote"><div class="cat-icon">🏠</div><h3>Fully Remote</h3><div class="cat-count" id="cat-count-fully-remote">– jobs</div></a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="banner">
+      <div>
+        <h2>We help you connect with the best jobs</h2>
+        <p>Get paid easily and securely. Build your profile once, and let employers looking for your skills find you.</p>
+      </div>
+      <a class="btn btn-accent" href="#board">Browse open jobs</a>
+    </div>
+  </div>
+</section>
+
+<section id="board">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow-small">Find your career</div>
+      <h2>Latest job openings</h2>
+    </div>
+    <div class="job-grid" id="job-grid">
+      <p style="color:var(--text);grid-column:1/-1;text-align:center;">Loading jobs…</p>
+    </div>
+    <div style="text-align:center;margin-top:34px;">
+      <a class="btn btn-outline" href="#">Browse all jobs</a>
+    </div>
+  </div>
+</section>
+
+<section id="stories">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow-small">Testimonials</div>
+      <h2>What our members say</h2>
+    </div>
+    <div class="t-grid">
+      <div class="t-card">
+        <div class="quote-mark">"</div>
+        <p>I filtered by flexible hours and had two interviews booked within a week. Didn't expect it to move that fast.</p>
+        <div class="t-person"><div class="t-avatar">M</div><div><div class="t-name">Marisol T.</div><div class="t-role">Customer Support</div></div></div>
+      </div>
+      <div class="t-card">
+        <div class="quote-mark">"</div>
+        <p>The category pages meant I wasn't wading through listings that had nothing to do with writing work.</p>
+        <div class="t-person"><div class="t-avatar">D</div><div><div class="t-name">Devon R.</div><div class="t-role">Freelance Copywriter</div></div></div>
+      </div>
+      <div class="t-card">
+        <div class="quote-mark">"</div>
+        <p>Applied direct, heard back direct. No recruiter chasing me for a call I didn't ask for.</p>
+        <div class="t-person"><div class="t-avatar">P</div><div><div class="t-name">Priya K.</div><div class="t-role">Virtual Assistant</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="blog">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow-small">Latest article</div>
+      <h2>Our blog</h2>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card">
+        <div class="blog-img"></div>
+        <div class="blog-body"><div class="blog-date">Aug 21, 2026</div><h3>Five remote job categories hiring right now</h3></div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-img"></div>
+        <div class="blog-body"><div class="blog-date">Aug 14, 2026</div><h3>How to spot a legit work-from-home listing</h3></div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-img"></div>
+        <div class="blog-body"><div class="blog-date">Aug 6, 2026</div><h3>Building a profile that gets you noticed</h3></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div class="foot-logo" style="display:flex;align-items:center;gap:8px;">
+          <svg width="20" height="20" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+            <path d="M2 25C7 15 15 9 23 11C25 6 32 3 38 6C32 9 28 15 24 17C21 24 14 27 7 26C5 26 3 25.5 2 25Z" fill="#ff6b35"/>
+            <circle cx="31" cy="9" r="1.7" fill="#fff"/>
+          </svg>
+          HireBird
+        </div>
+        <p style="max-width:32ch;font-size:14px;">The board for remote and flexible work.</p>
+      </div>
+      <div class="foot-col"><h4>Explore</h4><a href="#board">All jobs</a><a href="#categories">Categories</a><a href="#">For employers</a></div>
+      <div class="foot-col"><h4>Company</h4><a href="#">About</a><a href="#blog">Blog</a><a href="#">Contact</a></div>
+      <div class="foot-col"><h4>Legal</h4><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Cookie policy</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 HireBird Technologies. All rights reserved.</span>
+      <span>Made for people between jobs.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+if (!window.__hirebirdInitialized) {
+  window.__hirebirdInitialized = true;
+
+  // ---- Fill these in with your Supabase project's values (Settings > API) ----
+  const SUPABASE_URL = 'https://svlmqosnkyromwqbrkhu.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_6XLTNfKa4_JjVGRLGBPP6Q_EDP1_buX';
+  const SUPABASE_CONFIGURED = SUPABASE_URL.startsWith('http');
+  let sb = null;
+  if (SUPABASE_CONFIGURED) {
+    try {
+      sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    } catch (e) {
+      console.error('Supabase failed to initialize:', e);
+    }
+  }
+
+  let currentSession = null;
+  let pendingApply = null;
+
+  const modalContent = {
+    signin: {title:'Sign in', sub:'Admin access only.',
+      body:`<div class="field"><label>Email address</label><input type="email" id="signin-email" placeholder="you@email.com"></div>
+            <div class="field"><label>Password</label><input type="password" id="signin-password" placeholder="••••••••"></div>
+            <p id="modal-message" style="font-size:13px;color:#c0392b;margin:0 0 12px;"></p>
+            <button class="btn btn-accent btn-block" onclick="handleSignIn()">Sign in</button>`},
+    post: {title:'Post a job', sub:'This goes live on the board immediately.',
+      body:`<div class="field"><label>Company name</label><input type="text" id="post-company" placeholder="Acme Inc."></div>
+            <div class="field"><label>Job title</label><input type="text" id="post-title" placeholder="Remote Chat Support Agent"></div>
+            <div class="field"><label>Location</label><input type="text" id="post-location" placeholder="Remote" value="Remote"></div>
+            <div class="field"><label>Pay</label><input type="text" id="post-pay" placeholder="$19–$26/hr"></div>
+            <div class="field"><label>Job type</label><input type="text" id="post-type" placeholder="Full time"></div>
+            <div class="field"><label>Tags (comma separated)</label><input type="text" id="post-tags" placeholder="Full time, Entry level"></div>
+            <div class="field"><label>Industry</label><input type="text" id="post-industry" placeholder="Remote"></div>
+            <div class="field"><label>Experience</label><input type="text" id="post-experience" placeholder="No experience"></div>
+            <div class="field"><label>Qualification</label><input type="text" id="post-qualification" placeholder="Entry Level"></div>
+            <div class="field"><label>Functional area</label><input type="text" id="post-functional-area" placeholder="Advertisement"></div>
+            <div class="field"><label>Degree level</label><input type="text" id="post-degree-level" placeholder="Short Course"></div>
+            <div class="field"><label>External application link</label><input type="url" id="post-apply-url" placeholder="https://yoursite.com/apply/job-name"></div>
+            <div class="field"><label>Posted date (optional — leave blank for today)</label><input type="date" id="post-posted-date"></div>
+            <div class="field"><label>Full description</label><textarea id="post-description" rows="8" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:11px 12px;font-size:14px;font-family:inherit;" placeholder="Use blank lines between sections. Start a line with '## ' for a heading, and '- ' for a bullet point."></textarea></div>
+            <p id="modal-message" style="font-size:13px;color:#c0392b;margin:0 0 12px;"></p>
+            <button class="btn btn-accent btn-block" onclick="handlePostJob()">Publish listing</button>`}
+  };
+
+  function openModal(kind){
+    const c = modalContent[kind];
+    document.getElementById('modal-body').innerHTML = `<h3>${c.title}</h3><p>${c.sub}</p>${c.body}`;
+    document.getElementById('modal-backdrop').classList.add('open');
+  }
+  function closeModal(){ document.getElementById('modal-backdrop').classList.remove('open'); }
+  document.getElementById('modal-backdrop').addEventListener('click', e=>{ if(e.target.id==='modal-backdrop') closeModal(); });
+
+  function setModalMessage(msg){
+    const el = document.getElementById('modal-message');
+    if(el) el.textContent = msg;
+  }
+
+  // ---- Auth ----
+  async function checkAuth(){
+    if(!sb) return;
+    const { data } = await sb.auth.getSession();
+    currentSession = data.session;
+    updateNav();
+    loadJobs();
+  }
+
+  function updateNav(){
+    const btn = document.getElementById('nav-signin-btn');
+    btn.textContent = currentSession ? 'Sign out' : 'Sign in';
+    const analyticsLink = document.getElementById('nav-analytics-link');
+    if(analyticsLink) analyticsLink.style.display = currentSession ? 'inline-flex' : 'none';
+  }
+
+  function detectDevice(){
+    const ua = navigator.userAgent;
+    if(/iPad|Tablet/i.test(ua)) return 'Tablet';
+    if(/Mobi|Android|iPhone/i.test(ua)) return 'Mobile';
+    return 'Desktop';
+  }
+
+  function detectBrowser(){
+    const ua = navigator.userAgent;
+    if(/Edg\//i.test(ua)) return 'Edge';
+    if(/Chrome\//i.test(ua) && !/Chromium|Edg/i.test(ua)) return 'Chrome';
+    if(/Firefox\//i.test(ua)) return 'Firefox';
+    if(/Safari\//i.test(ua) && !/Chrome|Chromium/i.test(ua)) return 'Safari';
+    return 'Other';
+  }
+
+  async function logClick(jobId){
+    if(!sb || !jobId) return;
+    try {
+      const device_type = detectDevice();
+      const browser = detectBrowser();
+      let country = null;
+      try {
+        const geoRes = await fetch('https://ipwho.is/');
+        const geoData = await geoRes.json();
+        if(geoData && geoData.success !== false) country = geoData.country || null;
+      } catch(geoErr) { /* geo lookup failed, log click without country */ }
+
+      await sb.from('job_clicks').insert({ job_id: jobId, device_type, browser, country });
+    } catch(e) { console.error('Click logging failed:', e); }
+  }
+
+  function openApplyGate(jobId, applyUrl){
+    pendingApply = { jobId, applyUrl };
+    document.getElementById('modal-body').innerHTML = `
+      <h3>Enter your email to continue</h3>
+      <p>We'll use this to send you updates on this and similar opportunities.</p>
+      <div class="field"><label>Email address</label><input type="email" id="apply-email" placeholder="you@email.com"></div>
+      <p id="modal-message" style="font-size:13px;color:#c0392b;margin:0 0 12px;"></p>
+      <button class="btn btn-accent btn-block" onclick="submitApplyGate()">Continue to application</button>
+    `;
+    document.getElementById('modal-backdrop').classList.add('open');
+  }
+
+  async function submitApplyGate(){
+    const email = document.getElementById('apply-email').value.trim();
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      setModalMessage('Enter a valid email address.');
+      return;
+    }
+    const { jobId, applyUrl } = pendingApply || {};
+    if(sb && jobId){
+      try { await sb.from('leads').insert({ job_id: jobId, email }); }
+      catch(e) { console.error('Lead capture failed:', e); }
+    }
+    if(jobId) await logClick(jobId);
+    closeModal();
+    if(applyUrl) window.open(applyUrl, '_blank', 'noopener');
+  }
+
+  function handleSignInClick(){
+    if(currentSession){ handleSignOut(); } else { openModal('signin'); }
+  }
+
+  async function handleSignIn(){
+    if(!sb){ setModalMessage('Backend isn\'t connected yet — add your Supabase URL and key to the code.'); return; }
+    const email = document.getElementById('signin-email').value.trim();
+    const password = document.getElementById('signin-password').value;
+    if(!email || !password){ setModalMessage('Enter your email and password.'); return; }
+    const { data, error } = await sb.auth.signInWithPassword({ email, password });
+    if(error){ setModalMessage(error.message); return; }
+    currentSession = data.session;
+    updateNav();
+    loadJobs();
+    closeModal();
+    openModal('post');
+  }
+
+  async function handleSignOut(){
+    if(!sb) return;
+    await sb.auth.signOut();
+    currentSession = null;
+    updateNav();
+    loadJobs();
+  }
+
+  function handlePostClick(){
+    if(currentSession){ openModal('post'); } else { openModal('signin'); }
+  }
+
+  // ---- Jobs ----
+  async function handlePostJob(){
+    if(!sb){ setModalMessage('Backend isn\'t connected yet — add your Supabase URL and key to the code.'); return; }
+    if(!currentSession){ setModalMessage('Please sign in first.'); return; }
+    const company = document.getElementById('post-company').value.trim();
+    const title = document.getElementById('post-title').value.trim();
+    const location = document.getElementById('post-location').value.trim() || 'Remote';
+    const pay = document.getElementById('post-pay').value.trim();
+    const job_type = document.getElementById('post-type').value.trim();
+    const tagsRaw = document.getElementById('post-tags').value.trim();
+    const apply_url = document.getElementById('post-apply-url').value.trim();
+    const description = document.getElementById('post-description').value.trim();
+    const industry = document.getElementById('post-industry').value.trim();
+    const experience = document.getElementById('post-experience').value.trim();
+    const qualification = document.getElementById('post-qualification').value.trim();
+    const functional_area = document.getElementById('post-functional-area').value.trim();
+    const degree_level = document.getElementById('post-degree-level').value.trim();
+    const postedDateRaw = document.getElementById('post-posted-date').value;
+    const posted_at = postedDateRaw ? new Date(postedDateRaw + 'T12:00:00').toISOString() : null;
+
+    if(!company || !title || !apply_url){
+      setModalMessage('Company, job title, and application link are required.');
+      return;
+    }
+    const tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [];
+
+    const { error } = await sb.from('jobs').insert({
+      title, company, location, pay, job_type, tags, apply_url,
+      description, industry, experience, qualification, functional_area, degree_level, posted_at
+    });
+    if(error){ setModalMessage(error.message); return; }
+    closeModal();
+    loadJobs();
+  }
+
+  function timeAgo(dateStr){
+    const diffMs = Date.now() - new Date(dateStr).getTime();
+    const days = Math.floor(diffMs / 86400000);
+    if(days <= 0) return 'Today';
+    if(days === 1) return '1 day ago';
+    if(days < 7) return `${days} days ago`;
+    const weeks = Math.floor(days / 7);
+    if(weeks === 1) return '1 week ago';
+    return `${weeks} weeks ago`;
+  }
+
+  function jobCardHTML(job, index, arr){
+    const tags = (job.tags || []).map(t => `<span class="job-tag">${t}</span>`).join('');
+    const logoLetter = (job.company || '?').trim().charAt(0).toUpperCase();
+    const total = arr.length;
+    const reorderControls = currentSession ? `
+      <div style="display:flex;gap:6px;">
+        <button onclick="moveJob('${job.id}','up')" ${index===0?'disabled':''} title="Move up" style="border:1px solid var(--border);background:#fff;border-radius:6px;cursor:pointer;padding:4px 8px;font-size:12px;color:var(--dark);">↑</button>
+        <button onclick="moveJob('${job.id}','down')" ${index===total-1?'disabled':''} title="Move down" style="border:1px solid var(--border);background:#fff;border-radius:6px;cursor:pointer;padding:4px 8px;font-size:12px;color:var(--dark);">↓</button>
+      </div>` : '';
+    return `
+      <div class="job-card">
+        <div class="job-card-top"><div class="job-logo">${logoLetter}</div><div style="display:flex;align-items:center;gap:10px;"><div class="job-time">${timeAgo(job.posted_at || job.created_at)}</div>${reorderControls}</div></div>
+        <h3><a href="job-detail.html?id=${job.id}">${job.title}</a></h3>
+        <div class="job-company">${job.company} · ${job.location || 'Remote'}</div>
+        <div class="job-tags">${tags}</div>
+        <div class="job-card-foot"><span class="job-pay">${job.pay || ''}</span><a class="btn btn-outline" href="${job.apply_url}" target="_blank" rel="noopener" onclick="logClick('${job.id}')">Apply here</a></div>
+      </div>`;
+  }
+
+  let currentJobList = [];
+
+  const CATEGORY_KEYWORDS = {
+    'customer-service': ['customer service', 'customer support', 'chat support'],
+    'content-writing': ['content', 'writing', 'writer', 'copywriter'],
+    'marketing': ['marketing'],
+    'data-surveys': ['data', 'survey'],
+    'admin-support': ['admin', 'assistant', 'virtual assistant'],
+    'design': ['design'],
+    'sales': ['sales'],
+    'fully-remote': ['remote']
+  };
+
+  function jobSearchableText(job){
+    return [
+      ...(job.tags || []),
+      job.job_type || '',
+      job.industry || '',
+      job.location || '',
+      job.functional_area || ''
+    ].join(' ').toLowerCase();
+  }
+
+  function updateCategoryCounts(jobList){
+    Object.entries(CATEGORY_KEYWORDS).forEach(([slug, keywords]) => {
+      const count = jobList.filter(job => {
+        const text = jobSearchableText(job);
+        return keywords.some(k => text.includes(k));
+      }).length;
+      const el = document.getElementById(`cat-count-${slug}`);
+      if(el) el.textContent = `${count} job${count === 1 ? '' : 's'}`;
+    });
+  }
+
+  async function loadJobs(){
+    const grid = document.getElementById('job-grid');
+    if(!sb){
+      grid.innerHTML = `<p style="color:var(--text);grid-column:1/-1;text-align:center;">Backend isn't connected yet — add your Supabase URL and key to the code to show live jobs here.</p>`;
+      updateCategoryCounts([]);
+      return;
+    }
+    const { data, error } = await sb.from('jobs').select('*').order('sort_order', { ascending: true, nullsFirst: false }).order('created_at', { ascending: false });
+    if(error){
+      grid.innerHTML = `<p style="color:var(--text);grid-column:1/-1;text-align:center;">Couldn't load jobs — check the Supabase setup.</p>`;
+      updateCategoryCounts([]);
+      return;
+    }
+    if(!data || data.length === 0){
+      grid.innerHTML = `<p style="color:var(--text);grid-column:1/-1;text-align:center;">No jobs posted yet.</p>`;
+      updateCategoryCounts([]);
+      return;
+    }
+    currentJobList = data;
+    grid.innerHTML = data.map(jobCardHTML).join('');
+    updateCategoryCounts(data);
+  }
+
+  async function moveJob(jobId, direction){
+    const index = currentJobList.findIndex(j => j.id === jobId);
+    if(index === -1) return;
+    const swapIndex = direction === 'up' ? index - 1 : index + 1;
+    if(swapIndex < 0 || swapIndex >= currentJobList.length) return;
+
+    const reordered = currentJobList.slice();
+    [reordered[index], reordered[swapIndex]] = [reordered[swapIndex], reordered[index]];
+
+    await Promise.all(reordered.map((job, i) => sb.from('jobs').update({ sort_order: i }).eq('id', job.id)));
+    loadJobs();
+  }
+
+  function toggleNavMenu(){
+    document.getElementById('nav-links').classList.toggle('open');
+  }
+
+  // Expose the handlers used by inline onclick attributes
+  window.openModal = openModal;
+  window.closeModal = closeModal;
+  window.handleSignInClick = handleSignInClick;
+  window.handleSignIn = handleSignIn;
+  window.handlePostClick = handlePostClick;
+  window.handlePostJob = handlePostJob;
+  window.toggleNavMenu = toggleNavMenu;
+  window.logClick = logClick;
+  window.moveJob = moveJob;
+  window.openApplyGate = openApplyGate;
+  window.submitApplyGate = submitApplyGate;
+
+  checkAuth();
+  loadJobs();
+}
+</script>
+
+</body>
+</html>
