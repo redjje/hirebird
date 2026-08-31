@@ -46,6 +46,12 @@
   .nav-links{display:flex;gap:30px;font-weight:500;font-size:15px;color:var(--dark);}
   .nav-links a:hover{color:var(--blue);}
   .nav-right{display:flex;gap:14px;align-items:center;}
+  .nav-jobs-quick{display:none;font-weight:600;font-size:14px;color:var(--dark);white-space:nowrap;}
+  @media(max-width:900px){.nav-jobs-quick{display:inline-flex;}}
+  @media(max-width:600px){
+    .nav-right{gap:8px;}
+    .nav-right .btn{padding:8px 14px;font-size:13px;white-space:nowrap;}
+  }
   .nav-toggle{display:none;background:none;border:1px solid var(--border);border-radius:8px;padding:8px 10px;cursor:pointer;font-size:18px;color:var(--dark);}
   @media(max-width:900px){
     .nav-links{
@@ -193,6 +199,7 @@
         <a href="#blog">Blog</a>
       </div>
       <div class="nav-right">
+        <a class="nav-jobs-quick" href="jobs.html">Jobs</a>
         <button class="nav-toggle" onclick="toggleNavMenu()" aria-label="Toggle menu">☰</button>
         <a href="analytics.html" id="nav-analytics-link" style="display:none;font-weight:600;font-size:14px;color:var(--dark);margin-right:6px;">Analytics</a>
         <a class="btn btn-outline" href="#" id="nav-signin-btn" onclick="handleSignInClick();return false;">Sign in</a>
