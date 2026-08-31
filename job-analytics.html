@@ -39,8 +39,14 @@
   .nav-links{display:flex;gap:30px;font-weight:500;font-size:15px;color:var(--dark);}
   .nav-links a:hover{color:var(--blue);}
   .nav-right{display:flex;gap:14px;align-items:center;}
-  .nav-jobs-quick{display:none;font-weight:600;font-size:14px;color:var(--dark);white-space:nowrap;}
+  .nav-jobs-quick{display:none;font-weight:600;font-size:14px;color:var(--dark);white-space:nowrap;margin-left:6px;}
   @media(max-width:900px){.nav-jobs-quick{display:inline-flex;}}
+  .nav-divider{display:none;color:var(--border);font-size:14px;}
+  @media(max-width:900px){.nav-divider{display:inline-flex;}}
+  @media(max-width:900px){
+    #nav-signin-btn{border:none;padding:0;background:none;color:var(--dark);font-weight:600;font-size:14px;white-space:nowrap;}
+    #nav-signin-btn:hover{background:none;color:var(--blue);}
+  }
   @media(max-width:600px){
     .nav-right{gap:8px;}
     .nav-right .btn{padding:8px 14px;font-size:13px;white-space:nowrap;}
@@ -114,12 +120,16 @@
       <div class="nav-links" id="nav-links">
         <a href="index.html">Home</a>
         <a href="jobs.html">Jobs</a>
+        <a href="index.html#categories">Categories</a>
+        <a href="index.html#stories">Stories</a>
+        <a href="index.html#blog">Blog</a>
         <a href="analytics.html">Analytics</a>
       </div>
       <div class="nav-right">
         <a class="nav-jobs-quick" href="jobs.html">Jobs</a>
-        <button class="nav-toggle" onclick="toggleNavMenu()" aria-label="Toggle menu">☰</button>
+        <span class="nav-divider">|</span>
         <a class="btn btn-outline" href="#" id="nav-signin-btn" onclick="handleSignInClick();return false;">Sign in</a>
+        <button class="nav-toggle" onclick="toggleNavMenu()" aria-label="Toggle menu">☰</button>
       </div>
     </nav>
   </div>

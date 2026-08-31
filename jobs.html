@@ -45,8 +45,17 @@
   .nav-links{display:flex;gap:30px;font-weight:500;font-size:15px;color:var(--dark);}
   .nav-links a:hover, .nav-links a.active{color:var(--blue);}
   .nav-right{display:flex;gap:14px;align-items:center;}
-  .nav-jobs-quick{display:none;font-weight:600;font-size:14px;color:var(--dark);white-space:nowrap;}
+  .nav-jobs-quick{display:none;font-weight:600;font-size:14px;color:var(--dark);white-space:nowrap;margin-left:6px;}
   @media(max-width:900px){.nav-jobs-quick{display:inline-flex;}}
+  @media(max-width:900px){#nav-post-btn{display:none;}}
+  .nav-post-mobile{display:none;padding:12px 0;font-weight:600;color:var(--blue);cursor:pointer;}
+  @media(max-width:900px){.nav-post-mobile{display:block;}}
+  .nav-divider{display:none;color:var(--border);font-size:14px;}
+  @media(max-width:900px){.nav-divider{display:inline-flex;}}
+  @media(max-width:900px){
+    #nav-signin-btn{border:none;padding:0;background:none;color:var(--dark);font-weight:600;font-size:14px;white-space:nowrap;}
+    #nav-signin-btn:hover{background:none;color:var(--blue);}
+  }
   @media(max-width:600px){
     .nav-right{gap:8px;}
     .nav-right .btn{padding:8px 14px;font-size:13px;white-space:nowrap;}
@@ -71,10 +80,10 @@
   /* LAYOUT */
   .listing-layout{display:grid;grid-template-columns:270px 1fr;gap:32px;padding:44px 0 70px;align-items:start;}
   @media(max-width:860px){.listing-layout{grid-template-columns:1fr;}}
-  @media(max-width:860px){.sidebar{position:static;top:auto;}}
 
   /* SIDEBAR */
   .sidebar{border:1px solid var(--border);border-radius:var(--radius);padding:22px;position:sticky;top:90px;}
+  @media(max-width:860px){.sidebar{position:static;top:auto;}}
   .sidebar h4{font-size:14px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:14px;color:var(--dark);}
   .sidebar-block{margin-bottom:28px;}
   .sidebar-block:last-child{margin-bottom:0;}
@@ -178,13 +187,15 @@
         <a href="index.html#categories">Categories</a>
         <a href="index.html#stories">Stories</a>
         <a href="index.html#blog">Blog</a>
+        <a href="#" class="nav-post-mobile" onclick="handlePostClick();return false;">Post a job</a>
       </div>
       <div class="nav-right">
         <a class="nav-jobs-quick" href="jobs.html">Jobs</a>
-        <button class="nav-toggle" onclick="toggleNavMenu()" aria-label="Toggle menu">☰</button>
-        <a href="analytics.html" id="nav-analytics-link" style="display:none;font-weight:600;font-size:14px;color:var(--dark);margin-right:6px;">Analytics</a>
+        <span class="nav-divider">|</span>
+        <a href="analytics.html" id="nav-analytics-link" style="display:none;font-weight:600;font-size:14px;color:var(--dark);">Analytics</a>
         <a class="btn btn-outline" href="#" id="nav-signin-btn" onclick="handleSignInClick();return false;">Sign in</a>
-        <a class="btn btn-accent" href="#" onclick="handlePostClick();return false;">Post a job</a>
+        <a class="btn btn-accent" href="#" id="nav-post-btn" onclick="handlePostClick();return false;">Post a job</a>
+        <button class="nav-toggle" onclick="toggleNavMenu()" aria-label="Toggle menu">☰</button>
       </div>
     </nav>
   </div>
