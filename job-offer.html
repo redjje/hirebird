@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title id="page-title">Job Offer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:#f8f8f5;color:#1a1a2e;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  .page{max-width:600px;margin:0 auto;padding:32px 20px 0;}
+
+  /* HERO */
+  .hero{text-align:center;padding-bottom:32px;}
+  .company-logo{width:80px;height:80px;object-fit:contain;border-radius:16px;margin-bottom:18px;box-shadow:0 4px 20px rgba(0,0,0,0.12);}
+  .company-logo-placeholder{width:80px;height:80px;border-radius:16px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:#fff;box-shadow:0 4px 20px rgba(0,0,0,0.2);}
+  .hero-headline{font-size:26px;font-weight:800;line-height:1.2;margin-bottom:10px;color:#1a1a2e;}
+  .hero-headline .company-color{color:var(--brand);}
+  .hero-sub{font-size:15px;color:#555;margin-bottom:4px;}
+  .hero-tagline{font-size:13.5px;color:#888;}
+
+  /* STEPS */
+  .section{margin-bottom:36px;}
+  .step-card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:16px 18px;margin-bottom:12px;}
+  .step-title{font-size:14.5px;font-weight:700;color:#1a1a2e;margin-bottom:4px;}
+  .step-desc{font-size:13.5px;color:var(--brand);}
+  .step-desc.muted{color:#666;}
+  .step-preview{background:#f0f4ff;border-radius:8px;padding:10px 12px;margin-top:10px;display:flex;align-items:center;gap:10px;border:1px solid #dde6ff;}
+  .step-preview-logo{width:36px;height:36px;border-radius:8px;object-fit:contain;}
+  .step-preview-logo-placeholder{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;}
+  .step-preview-text{flex:1;}
+  .step-preview-name{font-size:12.5px;font-weight:700;color:#1a1a2e;}
+  .step-preview-company{font-size:11.5px;color:#666;}
+  .step-preview-hot{font-size:10px;font-weight:700;color:#fff;background:#e03131;border-radius:4px;padding:2px 6px;white-space:nowrap;}
+  .step-preview-salary{font-size:12px;color:var(--brand);font-weight:600;margin-top:4px;}
+
+  /* APPLY CTA */
+  .cta-wrap{text-align:center;margin:8px 0 36px;}
+  .btn-apply{display:inline-block;background:#1a3a8f;color:#fff;font-size:16px;font-weight:700;padding:15px 48px;border-radius:999px;cursor:pointer;border:none;font-family:inherit;transition:background .15s;}
+  .btn-apply:hover{background:#122a6e;}
+  .cta-note{font-size:12.5px;color:#888;margin-top:10px;}
+
+  /* BENEFITS */
+  .section-title{font-size:20px;font-weight:800;text-align:center;margin-bottom:18px;color:#1a1a2e;}
+  .section-title .company-color{color:var(--brand);}
+  .benefit-card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:16px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;}
+  .benefit-icon{font-size:20px;width:32px;text-align:center;flex-shrink:0;}
+  .benefit-title{font-size:14.5px;font-weight:700;color:#1a1a2e;margin-bottom:2px;}
+  .benefit-desc{font-size:13px;color:var(--brand);}
+
+  /* CHECKLIST */
+  .check-card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:14px 18px;margin-bottom:10px;display:flex;align-items:center;gap:12px;font-size:14px;color:#1a1a2e;}
+  .check-icon{font-size:16px;flex-shrink:0;color:var(--brand);}
+  .check-icon.req{color:#d4920a;}
+
+  /* BOTTOM CTA */
+  .bottom-cta{text-align:center;padding:40px 20px;}
+  .bottom-cta h2{font-size:22px;font-weight:800;margin-bottom:10px;}
+  .bottom-cta p{font-size:14px;color:var(--brand);margin-bottom:24px;max-width:380px;margin-left:auto;margin-right:auto;}
+
+  /* FOOTER */
+  footer{text-align:center;padding:28px 20px;border-top:1px solid #e8e8e8;}
+  .footer-logo{width:36px;height:36px;border-radius:8px;object-fit:contain;margin:0 auto 8px;}
+  .footer-logo-placeholder{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;margin:0 auto 8px;}
+  footer p{font-size:12px;color:#999;}
+</style>
+</head>
+<body>
+
+<script>
+// ─────────────────────────────────────────────
+//  EDIT EVERYTHING HERE — the page builds itself
+// ─────────────────────────────────────────────
+const JOB = {
+
+  // Page meta
+  pageTitle: "Get Paid to Work for Walmart",
+
+  // Company
+  companyName: "Walmart",
+  companyColor: "#0071ce",              // brand hex
+  companyLogo: "",                      // URL to logo image, or leave "" for initials
+  companyInitials: "W",                 // fallback if no logo
+  companyLogoBg: "#0071ce",            // background for initials badge
+
+  // Hero
+  heroHeadline: "Get Paid to Order Fulfillment for",  // company name appended automatically
+  heroSub: "Earn $35/hour as a Order Processor",
+  heroTagline: "Join thousands of Walmart lovers getting paid to Order Fulfillments",
+
+  // Step-by-step guide
+  steps: [
+    {
+      title: "Step 1 – Click Apply",
+      desc:  "Press the blue \"Apply Now\" button below. You'll be redirected to the official job portal.",
+      muted: false
+    },
+    {
+      title: "Step 2 – Enter Your Basic Information",
+      desc:  "Fill in your details (name, contact info, etc.) to create your profile.",
+      muted: false
+    },
+    {
+      title: "Step 3 – Find the Right Position",
+      desc:  "Browse the job list and select:",
+      muted: false,
+      previewJobTitle:   "Online Order Filler & Delivery",
+      previewCompany:    "Walmart",
+      previewSalary:     "View Salary",
+      showHot: true
+    },
+    {
+      title: "Step 4 – Submit Your Application",
+      desc:  "Complete the application form carefully and make sure all information is correct.",
+      muted: true
+    },
+    {
+      title: "Step 5 – Didn't Get Accepted? Try Again",
+      desc:  "Sometimes applications are declined for small mistakes or high demand. You can reapply and submit a new application.",
+      muted: true
+    }
+  ],
+
+  // Why work with us
+  benefits: [
+    { icon: "$", title: "$35/Hour",          desc: "Competitive pay for processing orders remotely" },
+    { icon: "🏠", title: "Work From Home",    desc: "Fully remote position available worldwide" },
+    { icon: "🕐", title: "Flexible Hours",    desc: "Choose your own schedule, day or night" },
+    { icon: "🛒", title: "Employee Discounts", desc: "Enjoy exclusive Walmart employee perks" }
+  ],
+
+  // What you'll do (blue checkmarks)
+  tasks: [
+    "Process and verify incoming customer orders",
+    "Coordinate order fulfillment and shipping logistics",
+    "Track inventory levels and flag shortages",
+    "Resolve order discrepancies and customer issues",
+    "Maintain accurate records in Walmart's systems"
+  ],
+
+  // Requirements (amber checkmarks)
+  requirements: [
+    "Strong attention to detail and organizational skills",
+    "Basic computer proficiency and data entry skills",
+    "Reliable internet connection and quiet workspace",
+    "Ability to manage multiple orders simultaneously",
+    "Excellent communication for resolving issues"
+  ],
+
+  // Bottom CTA
+  closingTitle: "Ready to Start Your Remote Career?",
+  closingDesc:  "Join Walmart's remote order fulfillment team and earn great pay from the comfort of your home.",
+
+  // Apply link
+  applyUrl: "https://linkthem.net/aff_c?offer_id=972&aff_id=2274&source=hibird2",
+
+  // Footer
+  footerText: "Walmart Remote Order Fulfillment © 2026"
+};
+// ─────────────────────────────────────────────
+// Stop editing here — page builds automatically
+// ─────────────────────────────────────────────
+
+document.title = JOB.pageTitle;
+document.documentElement.style.setProperty('--brand', JOB.companyColor);
+
+function logoHTML(size, cls){
+  if(JOB.companyLogo){
+    return `<img src="${JOB.companyLogo}" alt="${JOB.companyName}" class="${cls}" style="width:${size}px;height:${size}px;">`;
+  }
+  return `<div class="${cls}" style="width:${size}px;height:${size}px;background:${JOB.companyLogoBg};">${JOB.companyInitials}</div>`;
+}
+
+function renderStepPreview(step){
+  if(!step.previewJobTitle) return '';
+  const miniLogo = JOB.companyLogo
+    ? `<img src="${JOB.companyLogo}" alt="${JOB.companyName}" class="step-preview-logo">`
+    : `<div class="step-preview-logo-placeholder" style="background:${JOB.companyLogoBg};">${JOB.companyInitials}</div>`;
+  return `
+    <div class="step-preview">
+      ${miniLogo}
+      <div class="step-preview-text">
+        <div class="step-preview-name">${step.previewJobTitle}</div>
+        <div class="step-preview-company">${step.previewCompany}</div>
+        <div class="step-preview-salary">${step.previewSalary}</div>
+      </div>
+      ${step.showHot ? `<span class="step-preview-hot">🔥 HOT</span>` : ''}
+    </div>`;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    <div class="page">
+      <div class="hero">
+        ${logoHTML(80, JOB.companyLogo ? 'company-logo' : 'company-logo-placeholder')}
+        <h1 class="hero-headline">${JOB.heroHeadline} <span class="company-color">${JOB.companyName}</span></h1>
+        <p class="hero-sub">${JOB.heroSub}</p>
+        <p class="hero-tagline">${JOB.heroTagline}</p>
+      </div>
+
+      <div class="section">
+        ${JOB.steps.map(s => `
+          <div class="step-card">
+            <div class="step-title">${s.title}</div>
+            <div class="step-desc${s.muted?' muted':''}">${s.desc}</div>
+            ${s.previewJobTitle ? `<p style="font-size:13px;margin-top:6px;">👉 <span style="color:var(--brand);font-weight:600;">${s.previewJobTitle.includes('&amp;') ? s.previewJobTitle : s.previewJobTitle}</span></p>` : ''}
+            ${renderStepPreview(s)}
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="cta-wrap">
+        <a href="${JOB.applyUrl}" class="btn-apply" target="_blank" rel="noopener">Apply Now</a>
+        <p class="cta-note">Limited positions available • No experience required</p>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Why Work With <span class="company-color">${JOB.companyName}</span>?</h2>
+        ${JOB.benefits.map(b => `
+          <div class="benefit-card">
+            <div class="benefit-icon">${b.icon}</div>
+            <div>
+              <div class="benefit-title">${b.title}</div>
+              <div class="benefit-desc">${b.desc}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">What You'll Do</h2>
+        ${JOB.tasks.map(t => `
+          <div class="check-card">
+            <span class="check-icon">✅</span>
+            ${t}
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Requirements</h2>
+        ${JOB.requirements.map(r => `
+          <div class="check-card">
+            <span class="check-icon req">🔔</span>
+            ${r}
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="bottom-cta">
+        <h2>${JOB.closingTitle}</h2>
+        <p>${JOB.closingDesc}</p>
+        <a href="${JOB.applyUrl}" class="btn-apply" target="_blank" rel="noopener">Apply Now</a>
+      </div>
+    </div>
+
+    <footer>
+      ${logoHTML(36, JOB.companyLogo ? 'footer-logo' : 'footer-logo-placeholder')}
+      <p>${JOB.footerText}</p>
+    </footer>
+  `;
+});
+</script>
+
+<div id="app"></div>
+
+</body>
+</html>
