@@ -525,7 +525,7 @@ if (!window.__hirebirdInitialized) {
         ${dragHandle}
         <div class="listing-logo">${logoInner}</div>
         <div class="listing-main">
-          <h3><a href="job-detail.html?id=${job.id}">${job.title}</a></h3>${tags}
+          <h3><a href="${job.apply_url}" target="_blank" rel="noopener" onclick="logClick('${job.id}')">${job.title}</a></h3>${tags}
           <div class="listing-loc">${job.location || 'Remote'}</div>
           <div class="listing-company">${job.company}</div>
         </div>
