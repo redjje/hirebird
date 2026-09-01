@@ -349,12 +349,28 @@ if (!window.__hirebirdInitialized) {
     return new Date(dateStr).toLocaleDateString(undefined, { year:'numeric', month:'short', day:'2-digit' });
   }
 
+  // Supabase caps any single request at 1000 rows by default — this loops
+  // through pages so totals stay accurate no matter how much data there is.
+  async function fetchAllRows(queryBuilderFn){
+    let allRows = [];
+    let from = 0;
+    const pageSize = 1000;
+    while(true){
+      const { data, error } = await queryBuilderFn().range(from, from + pageSize - 1);
+      if(error) return { data: null, error };
+      allRows = allRows.concat(data || []);
+      if(!data || data.length < pageSize) break;
+      from += pageSize;
+    }
+    return { data: allRows, error: null };
+  }
+
   async function loadAnalytics(){
     const tbody = document.getElementById('analytics-table-body');
-    const { data: jobs, error: jobsError } = await sb.from('jobs').select('*').order('created_at', { ascending: false });
-    const { data: clicks, error: clicksError } = await sb.from('job_clicks').select('*');
-    const { data: leads, error: leadsError } = await sb.from('leads').select('*').order('created_at', { ascending: false });
-    const { data: views, error: viewsError } = await sb.from('page_views').select('*');
+    const { data: jobs, error: jobsError } = await fetchAllRows(() => sb.from('jobs').select('*').order('created_at', { ascending: false }));
+    const { data: clicks, error: clicksError } = await fetchAllRows(() => sb.from('job_clicks').select('*'));
+    const { data: leads, error: leadsError } = await fetchAllRows(() => sb.from('leads').select('*').order('created_at', { ascending: false }));
+    const { data: views, error: viewsError } = await fetchAllRows(() => sb.from('page_views').select('*'));
 
     if(jobsError || clicksError){
       tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--text);">Couldn't load analytics — check your Supabase policies.</td></tr>`;
