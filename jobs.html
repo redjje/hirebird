@@ -532,6 +532,7 @@ if (!window.__hirebirdInitialized) {
         <div class="listing-right">
           <div class="listing-pay">${job.pay || ''}</div>
           <a class="listing-browse" href="${job.apply_url}" target="_blank" rel="noopener" onclick="logClick('${job.id}')">Browse Job</a>
+          ${currentSession ? `<a href="job-detail.html?id=${job.id}" style="display:block;font-size:11px;color:var(--text);margin-top:6px;text-align:right;">✏️ Edit</a>` : ''}
         </div>
       </div>`;
   }
