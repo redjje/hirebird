@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insignia</title>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --accent:#3b82f6;
+      --accent-2:#ef4444;
+      --border:#e5e7eb;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text);
+      background:rgb(51, 51, 51);
+      display:flex;flex-direction:column;
+      padding-top:0; /* JS sets this dynamically */
+    }
+
+    /* =========================================================
+       HOLIDAY HEADER (FULL WIDTH) - fixed at top
+       Tightened vertical padding so the video sits higher on load
+       ========================================================= */
+    .holiday-offer-bar{
+      --red:#b10f0f;
+      --red-dark:#8f0b0b;
+      --teal:#0f6b67;
+      --text:#ffffff;
+      position:fixed; top:0; left:0; right:0;
+      z-index:10050;
+      width:100%;
+      border-radius:0;
+      overflow:hidden;
+      padding:10px 22px;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background: linear-gradient(0deg, var(--red-dark), var(--red));
+    }
+    .holiday-offer-bar::before{
+      content:"";
+      position:absolute; inset:0;
+      pointer-events:none;
+      opacity:.18;
+      background:
+        radial-gradient(circle at 8% 25%, #fff 0 2px, transparent 3px),
+        radial-gradient(circle at 18% 70%, #fff 0 1.5px, transparent 3px),
+        radial-gradient(circle at 30% 30%, #fff 0 2px, transparent 3px),
+        radial-gradient(circle at 44% 65%, #fff 0 1.5px, transparent 3px),
+        radial-gradient(circle at 55% 18%, #fff 0 2px, transparent 3px),
+        radial-gradient(circle at 66% 55%, #fff 0 1.5px, transparent 3px),
+        radial-gradient(circle at 78% 28%, #fff 0 2px, transparent 3px),
+        radial-gradient(circle at 90% 62%, #fff 0 1.5px, transparent 3px);
+    }
+    .holiday-offer-inner{
+      position: relative;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+    .holiday-left{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      min-width: 240px;
+    }
+    .holiday-ribbon{
+      position: relative;
+      background: var(--teal);
+      padding: 5px 12px;
+      font-weight: 900;
+      letter-spacing: .5px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      line-height: 1;
+      font-size: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.18);
+    }
+    .holiday-ribbon::before,
+    .holiday-ribbon::after{
+      content:"";
+      position:absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 10px; height: 14px;
+      background: rgba(0,0,0,.18);
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+    }
+    .holiday-ribbon::before{ left:-10px; }
+    .holiday-ribbon::after{
+      right:-10px;
+      clip-path: polygon(100% 0, 0 50%, 100% 100%);
+    }
+    .holiday-offer-word{
+      font-weight: 900;
+      font-size: 32px;
+      line-height: 1;
+      letter-spacing: 1px;
+      margin-top: 4px;
+      text-transform: uppercase;
+      text-shadow: 0 10px 24px rgba(0,0,0,.25);
+    }
+    .holiday-center{
+      flex: 1;
+      text-align:center;
+      font-weight: 800;
+      font-size: 22px;
+      line-height: 1.15;
+      text-shadow: 0 10px 24px rgba(0,0,0,.18);
+      white-space: nowrap;
+    }
+    .holiday-center strong{
+      font-weight: 900;
+      font-size: 32px;
+      margin: 0 6px;
+      display:inline-block;
+      transform: translateY(2px);
+    }
+    .holiday-center span{ font-weight: 700; opacity: .95; }
+
+    .holiday-timer{
+      display:flex;
+      align-items:flex-end;
+      gap:10px;
+      min-width: 320px;
+      justify-content:flex-end;
+    }
+    .time-block{ text-align:center; }
+    .time-box{
+      display:flex;
+      gap:6px;
+      justify-content:center;
+      align-items:center;
+    }
+    .digit{
+      width: 32px;
+      height: 38px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 900;
+      font-size: 22px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.18);
+      box-shadow: inset 0 -2px 0 rgba(0,0,0,.15);
+      backdrop-filter: blur(2px);
+    }
+    .colon{
+      font-weight: 900;
+      font-size: 22px;
+      opacity: .9;
+      margin: 0 2px;
+      transform: translateY(-2px);
+    }
+    .time-label{
+      margin-top: 6px;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: .9;
+      font-weight: 800;
+    }
+
+    @media (max-width: 1100px){
+      .holiday-center{ white-space: normal; font-size: 18px; }
+      .holiday-center strong{ font-size: 28px; }
+      .holiday-timer{ min-width: 280px; }
+    }
+    @media (max-width: 860px){
+      .holiday-offer-inner{ flex-wrap: wrap; justify-content:center; }
+      .holiday-left{ min-width: unset; }
+      .holiday-center{ order: 3; width: 100%; }
+      .holiday-timer{ order: 2; width: 100%; justify-content:center; }
+    }
+
+    .main{
+      flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:8px 18px 140px;
+    }
+
+    /* Micro-commitment hook line above the player */
+    .hook-line{
+      width:min(880px,100%);
+      text-align:center;
+      color:#ffffff;
+      font-weight:800;
+      font-size:28px;
+      line-height:1.35;
+      letter-spacing:.2px;
+      margin: 10px 0 18px;
+      padding: 0 14px;
+      text-shadow: 0 3px 14px rgba(0,0,0,.55);
+    }
+    .hook-line b{
+      color:#ffd25a;
+      font-weight:900;
+      background: rgba(255,210,90,.14);
+      padding: 0 6px;
+      border-radius: 6px;
+    }
+    @media (max-width:700px){ .hook-line{ font-size:21px; } }
+    @media (max-width:420px){ .hook-line{ font-size:18px; } }
+
+    .stage{
+      position:relative; width:min(1040px,100%); border-radius:24px; box-shadow:var(--shadow);
+      overflow:hidden;
+      text-align:center;
+      margin-bottom:20px;
+      scroll-margin-top: 140px; /* so scrollIntoView doesn't hide it under fixed bars */
+    }
+
+    /* =========================================================
+       "Continue watching" sticky nudge — appears once the player
+       scrolls out of view, so viewers don't lose the video and
+       forget to come back to it.
+       ========================================================= */
+    .cw-nudge{
+      position:fixed;
+      right:18px; bottom:18px;
+      z-index:10030;
+      background:#111827;
+      color:#fff;
+      border-radius:14px;
+      box-shadow:0 12px 30px rgba(0,0,0,.4);
+      padding:12px 16px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+      opacity:0;
+      transform:translateY(12px);
+      pointer-events:none;
+      transition:opacity .25s ease, transform .25s ease;
+      max-width: 280px;
+    }
+    .cw-nudge.show{ opacity:1; transform:translateY(0); pointer-events:auto; }
+    .cw-nudge .cw-dot{
+      width:10px;height:10px;border-radius:999px;background:#22c55e;flex:0 0 auto;
+      box-shadow:0 0 0 0 rgba(34,197,94,.6);
+      animation: cwPulse 1.6s infinite;
+    }
+    @keyframes cwPulse{
+      0%{ box-shadow:0 0 0 0 rgba(34,197,94,.6); }
+      70%{ box-shadow:0 0 0 8px rgba(34,197,94,0); }
+      100%{ box-shadow:0 0 0 0 rgba(34,197,94,0); }
+    }
+
+    /* =========================================================
+       Exit-intent nudge overlay
+       ========================================================= */
+    .exit-overlay{
+      position:fixed; inset:0; z-index:10060;
+      background:rgba(0,0,0,.72);
+      display:none;
+      align-items:center; justify-content:center;
+      padding:20px;
+    }
+    .exit-overlay.show{ display:flex; }
+    .exit-card{
+      background:#fff; color:#1f2937;
+      border-radius:16px;
+      max-width:420px; width:100%;
+      padding:28px 26px;
+      text-align:center;
+      box-shadow:0 20px 60px rgba(0,0,0,.4);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    }
+    .exit-card h3{ margin:0 0 10px; font-size:22px; font-weight:900; }
+    .exit-card p{ margin:0 0 20px; color:#4b5563; font-size:15px; line-height:1.5; }
+    .exit-card button{
+      background:#b10f0f; color:#fff; border:none; border-radius:10px;
+      padding:12px 22px; font-weight:800; font-size:15px; cursor:pointer;
+    }
+    .exit-card button:hover{ background:#8f0b0b; }
+
+    /* =========================================================
+       COUPON/VERIFY WIDGET (appears at the video-progress trigger)
+       ========================================================= */
+    .cw-hidden{ display:none; }
+
+    .cw-wrap{
+      width:min(1040px,100%);
+      margin: 18px auto 120px;
+      background:#3a3a3a;
+      color:#f2f2f2;
+      padding: 26px 34px 40px;
+      border-radius: 10px;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    }
+    .cw-verify-list{
+      margin: 0 0 26px 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+    .cw-verify-item{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: .2px;
+    }
+    .cw-check{
+      width: 26px;
+      height: 26px;
+      display:grid;
+      place-items:center;
+      font-size: 18px;
+      color: #fff;
+      flex: 0 0 auto;
+    }
+    .cw-verify-link{
+      color:#b145ff;
+      text-decoration:none;
+      font-weight: 800;
+    }
+    .cw-verify-link:hover{ text-decoration:underline; }
+    .cw-center{ text-align:center; margin-top:10px; }
+    .cw-code{
+      font-size: 34px;
+      font-weight: 500;
+      margin: 10px 0 26px;
+    }
+    .cw-code b{
+      font-weight: 900;
+      letter-spacing: .5px;
+    }
+    .cw-exp{
+      font-size: 30px;
+      margin: 0 0 24px;
+      font-weight: 850;
+    }
+    .cw-exp span{
+      font-weight: 400;
+      color: #cfcfcf;
+      margin-left: 8px;
+    }
+    .cw-timer{
+      display:flex;
+      justify-content:center;
+      gap: 34px;
+      flex-wrap:wrap;
+    }
+    .cw-unit{ width: 96px; text-align:center; }
+    .cw-circle{
+      width: 86px;
+      height: 86px;
+      margin: 0 auto 10px;
+      background: radial-gradient(circle at 30% 25%, #505050, #3b3b3b);
+      border-radius: 999px;
+      box-shadow: 0 8px 18px rgba(0,0,0,.35);
+      display:grid;
+      place-items:center;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .cw-num{
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      font-variant-numeric: tabular-nums;
+    }
+    .cw-label{
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: #cfcfcf;
+      font-weight: 800;
+    }
+    @media (max-width: 520px){
+      .cw-verify-item{ font-size: 16px; }
+      .cw-code{ font-size: 26px; }
+      .cw-exp{ font-size: 22px; }
+      .cw-timer{ gap: 18px; }
+      .cw-unit{ width: 84px; }
+      .cw-circle{ width: 74px; height: 74px; }
+      .cw-num{ font-size: 28px; }
+      .cw-wrap{ padding: 20px 18px 28px; }
+    }
+
+    .statusbar{
+      position:fixed; left:0; right:0; bottom:0; background:black; border-top:1px solid var(--border);
+      display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 18px;
+      flex-wrap:nowrap;
+    }
+    .status-left, .status-right{ display:flex; align-items:center; gap:16px; color:var(--muted); }
+    .logo img{ height:40px; }
+  </style>
+
+  <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+  <link rel="preload" href="https://scripts.converteai.net/9d387b3e-38a2-42c6-88d3-51c6459f35d3/players/694cf92871611df8184d20de/v4/player.js" as="script">
+  <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+  <link rel="preload" href="https://cdn.converteai.net/9d387b3e-38a2-42c6-88d3-51c6459f35d3/694cf8c663476f09ce04720a/main.m3u8" as="fetch">
+  <link rel="dns-prefetch" href="https://cdn.converteai.net">
+  <link rel="dns-prefetch" href="https://scripts.converteai.net">
+  <link rel="dns-prefetch" href="https://images.converteai.net">
+  <link rel="dns-prefetch" href="https://api.vturb.com.br">
+</head>
+
+<body>
+  <!-- ✅ HOLIDAY HEADER (TOP) -->
+  <div class="holiday-offer-bar">
+    <div class="holiday-offer-inner">
+      <div class="holiday-left">
+        <div>
+          <div class="holiday-ribbon">$500 Discount</div>
+          <div class="holiday-offer-word">Coupon!</div>
+        </div>
+      </div>
+      <div class="holiday-center">
+        The <strong>Biggest</strong> opportunity this year so far<span>!!!</span>
+      </div>
+      <div class="holiday-timer" aria-label="Countdown timer">
+        <div class="time-block">
+          <div class="time-box" data-unit="days">
+            <div class="digit" data-d1>0</div>
+            <div class="digit" data-d2>0</div>
+          </div>
+          <div class="time-label">DAYS</div>
+        </div>
+
+        <div class="colon">:</div>
+
+        <div class="time-block">
+          <div class="time-box" data-unit="hours">
+            <div class="digit" data-d1>0</div>
+            <div class="digit" data-d2>0</div>
+          </div>
+          <div class="time-label">HRS</div>
+        </div>
+
+        <div class="colon">:</div>
+
+        <div class="time-block">
+          <div class="time-box" data-unit="mins">
+            <div class="digit" data-d1>0</div>
+            <div class="digit" data-d2>0</div>
+          </div>
+          <div class="time-label">MINS</div>
+        </div>
+
+        <div class="colon">:</div>
+
+        <div class="time-block">
+          <div class="time-box" data-unit="secs">
+            <div class="digit" data-d1>0</div>
+            <div class="digit" data-d2>0</div>
+          </div>
+          <div class="time-label">SECS</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <center>
+    <div class="logo">
+      <img src="https://instagains.com/insignia/Insignia-members.png">
+    </div>
+  </center>
+
+  <main class="main">
+
+    <!-- Micro-commitment hook line: anchors expectation right above the player -->
+    <div class="hook-line">
+      Stay with me for the next few minutes — I'll show you exactly <b>how this works</b> and how to claim your $500 coupon before it's gone.
+    </div>
+
+    <section class="stage" id="videoStage">
+<vturb-smartplayer id="vid-6a969d1ac209c29eb2b195e9" style="display: block; margin: 0 auto; width: 100%; "><div class="vturb-player-placeholder" style="position: relative; width: 100%; padding: 56.25% 0 0; z-index: 0; background-color: black;"></div></vturb-smartplayer> <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/9d387b3e-38a2-42c6-88d3-51c6459f35d3/players/6a969d1ac209c29eb2b195e9/v4/player.js", s.async=!0,document.head.appendChild(s); </script>
+    </section>
+
+    <!-- ✅ COUPON / VERIFY SECTION (HIDDEN UNTIL VIDEO-PROGRESS TRIGGER) -->
+    <section class="cw-wrap cw-hidden" id="couponWidget">
+      <div class="cw-center">
+        <div class="cw-code">Use Coupon Code: <b>MYSUBS500</b></div>
+        <div class="cw-exp">Coupon<span>Expires In:</span></div>
+
+        <div class="cw-timer" aria-label="Coupon countdown timer">
+          <div class="cw-unit">
+            <div class="cw-circle"><div class="cw-num" id="cwD">00</div></div>
+            <div class="cw-label">DAYS</div>
+          </div>
+          <div class="cw-unit">
+            <div class="cw-circle"><div class="cw-num" id="cwH">00</div></div>
+            <div class="cw-label">HOURS</div>
+          </div>
+          <div class="cw-unit">
+            <div class="cw-circle"><div class="cw-num" id="cwM">00</div></div>
+            <div class="cw-label">MINUTES</div>
+          </div>
+          <div class="cw-unit">
+            <div class="cw-circle"><div class="cw-num" id="cwS">00</div></div>
+            <div class="cw-label">SECONDS</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- "Continue watching" sticky nudge, shown when the player scrolls off-screen -->
+  <div class="cw-nudge" id="continueWatchingNudge">
+    <span class="cw-dot"></span>
+    <span>You're missing the video — tap to jump back in</span>
+  </div>
+
+  <!-- Exit-intent overlay -->
+  <div class="exit-overlay" id="exitOverlay">
+    <div class="exit-card">
+      <h3>Wait — don't miss this</h3>
+      <p>Your $500 coupon is only available while you're on this page. Finish the video to see how to claim it.</p>
+      <button id="exitOverlayBtn">Take me back to the video</button>
+    </div>
+  </div>
+
+  <footer class="statusbar" role="contentinfo">
+    <div class="status-left"></div>
+    <div class="status-right"></div>
+  </footer>
+
+  <script>
+    // =========================================================
+    // ✅ SINGLE SOURCE OF TRUTH FOR BOTH TIMERS
+    // Change ONLY this one value:
+    // =========================================================
+    window.INSIGNIA_OFFER_END = "2026-09-05T23:59:59+04:00";   // <-- CHANGE THIS ONLY
+  </script>
+
+  <script>
+    // =========================================================
+    // HOLIDAY TIMER + COUPON TIMER (SYNCED)
+    // =========================================================
+    (function(){
+      const endStr = window.INSIGNIA_OFFER_END;
+      const endMs = new Date(endStr).getTime();
+
+      // ---- Holiday digits ----
+      const bar = document.querySelector(".holiday-offer-bar");
+      const setTwoDigits = (unit, value) => {
+        const box = bar?.querySelector(`.time-box[data-unit="${unit}"]`);
+        if(!box) return;
+        const s = String(value).padStart(2, "0").slice(-2);
+        box.querySelector("[data-d1]").textContent = s[0];
+        box.querySelector("[data-d2]").textContent = s[1];
+      };
+
+      // ---- Coupon digits ----
+      const elD = document.getElementById("cwD");
+      const elH = document.getElementById("cwH");
+      const elM = document.getElementById("cwM");
+      const elS = document.getElementById("cwS");
+      const pad2 = (n)=>String(n).padStart(2,"0");
+
+      const renderAll = () => {
+        const diff = Math.max(0, endMs - Date.now());
+        const totalSeconds = Math.floor(diff / 1000);
+
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const mins = Math.floor((totalSeconds % 3600) / 60);
+        const secs = totalSeconds % 60;
+
+        // Holiday: last 2 digits
+        setTwoDigits("days", days);
+        setTwoDigits("hours", hours);
+        setTwoDigits("mins", mins);
+        setTwoDigits("secs", secs);
+
+        // Coupon: full values (days can be > 99 if you ever do that)
+        if(elD) elD.textContent = pad2(days);
+        if(elH) elH.textContent = pad2(hours);
+        if(elM) elM.textContent = pad2(mins);
+        if(elS) elS.textContent = pad2(secs);
+      };
+
+      renderAll();
+      setInterval(renderAll, 1000);
+    })();
+  </script>
+
+  <script>
+    // =========================================================
+    // COUPON WIDGET REVEAL — tied to actual video watch progress
+    // instead of a flat page-load timer. Rewards people who are
+    // actually watching, which is a stronger, more honest trigger.
+    //
+    // REVEAL_AFTER_SECONDS is used only as a fallback if we can't
+    // detect the underlying <video> element within FALLBACK_WAIT_MS
+    // (some third-party embeds delay mounting the real <video> tag).
+    // =========================================================
+    (function(){
+      const REVEAL_AFTER_SECONDS = (15 * 60) + 30; // 27:30 fallback
+      const FALLBACK_WAIT_MS = 90 * 1000;          // give the player 90s to mount
+      const elWidget = document.getElementById("couponWidget");
+
+      let revealed = false;
+
+      function reveal(){
+        if (revealed || !elWidget) return;
+        revealed = true;
+        elWidget.classList.remove("cw-hidden");
+        elWidget.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      // Progress-based path: watch the real <video> element for currentTime
+      let videoHooked = false;
+      const pollStart = Date.now();
+      const poll = setInterval(() => {
+        const v = document.querySelector("video");
+        if (v && !videoHooked){
+          videoHooked = true;
+          clearInterval(poll);
+          v.addEventListener("timeupdate", () => {
+            if (v.currentTime >= REVEAL_AFTER_SECONDS) reveal();
+          });
+          // If the video is shorter than the trigger point, reveal at the end instead
+          v.addEventListener("ended", reveal);
+          return;
+        }
+        if (!videoHooked && Date.now() - pollStart > FALLBACK_WAIT_MS){
+          clearInterval(poll);
+          // Fallback: couldn't find a real <video> tag in time, use page timer
+          setTimeout(reveal, REVEAL_AFTER_SECONDS * 1000);
+        }
+      }, 500);
+    })();
+  </script>
+
+  <script>
+    // Keep body content clear of the fixed holiday bar
+    (function(){
+      const holiday = document.querySelector('.holiday-offer-bar');
+      if(!holiday) return;
+
+      const applyOffsets = () => {
+        const h1 = Math.ceil(holiday.getBoundingClientRect().height);
+        document.body.style.paddingTop = h1 + "px";
+      };
+
+      const runBurst = () => {
+        let i = 0;
+        const loop = () => { applyOffsets(); if(i++ < 10) requestAnimationFrame(loop); };
+        loop();
+      };
+
+      window.addEventListener('load', runBurst);
+      window.addEventListener('resize', applyOffsets);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(runBurst);
+      runBurst();
+    })();
+  </script>
+
+  <script>
+    // =========================================================
+    // "Continue watching" sticky nudge — shows once the player
+    // scrolls out of view so people don't forget to come back.
+    // =========================================================
+    (function(){
+      const stage = document.getElementById('videoStage');
+      const nudge = document.getElementById('continueWatchingNudge');
+      if(!stage || !nudge) return;
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          nudge.classList.toggle('show', !entry.isIntersecting);
+        });
+      }, { threshold: 0.15 });
+
+      io.observe(stage);
+
+      nudge.addEventListener('click', () => {
+        stage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    })();
+  </script>
+
+  <script>
+    // =========================================================
+    // Exit-intent nudge: fires once when the cursor moves toward
+    // the top of the viewport (classic "leaving the tab" motion).
+    // Also nudges the tab title when the tab loses focus, and
+    // restores it on return.
+    // =========================================================
+    (function(){
+      const overlay = document.getElementById('exitOverlay');
+      const closeBtn = document.getElementById('exitOverlayBtn');
+      const stage = document.getElementById('videoStage');
+      if(!overlay || !closeBtn || !stage) return;
+
+      let shown = false;
+
+      function showOverlay(){
+        if (shown) return;
+        shown = true;
+        overlay.classList.add('show');
+      }
+
+      function hideAndScroll(){
+        overlay.classList.remove('show');
+        stage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      closeBtn.addEventListener('click', hideAndScroll);
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) hideAndScroll();
+      });
+
+      document.addEventListener('mouseleave', (e) => {
+        if (e.clientY <= 0) showOverlay();
+      });
+
+      // Tab title nudge on blur/focus
+      const originalTitle = document.title;
+      let titleTimer = null;
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden){
+          document.title = "👀 Don't miss your $500 coupon";
+        } else {
+          document.title = originalTitle;
+          if (titleTimer) clearTimeout(titleTimer);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
