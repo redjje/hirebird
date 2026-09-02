@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>Unlock Your Online Earning Potential — PB System</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:#f8f8f5;color:#1a1a2e;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  .page{max-width:600px;margin:0 auto;padding:32px 20px 0;}
+
+  .hero{text-align:center;padding-bottom:28px;}
+  .company-badge{width:80px;height:80px;border-radius:20px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f7a4a,#14a060);box-shadow:0 4px 24px rgba(15,122,74,0.35);}
+  .hero-headline{font-size:clamp(22px,5vw,28px);font-weight:800;line-height:1.2;margin-bottom:10px;color:#1a1a2e;}
+  .hero-headline .company-color{color:var(--brand);}
+  .hero-sub{font-size:15px;color:#555;margin-bottom:4px;}
+  .hero-tagline{font-size:13.5px;color:#888;max-width:420px;margin:0 auto;}
+
+  .urgency-bar{background:#fff8e1;border:1.5px solid #f0b429;border-radius:10px;padding:12px 16px;text-align:center;font-size:13.5px;font-weight:700;color:#7a5a00;margin-bottom:28px;}
+
+  .section{margin-bottom:36px;}
+  .step-card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:16px 18px;margin-bottom:12px;}
+  .step-title{font-size:14.5px;font-weight:700;color:#1a1a2e;margin-bottom:4px;}
+  .step-desc{font-size:13.5px;color:var(--brand);}
+  .step-desc.muted{color:#666;}
+
+  .cta-wrap{text-align:center;margin:8px 0 36px;}
+  .btn-apply{display:inline-block;background:#0f7a4a;color:#fff;font-size:16px;font-weight:700;padding:15px 48px;border-radius:999px;cursor:pointer;border:none;font-family:inherit;transition:background .15s;box-shadow:0 6px 20px rgba(15,122,74,0.3);}
+  .btn-apply:hover{background:#0a5e38;}
+  .cta-note{font-size:12.5px;color:#888;margin-top:10px;}
+
+  .section-title{font-size:20px;font-weight:800;text-align:center;margin-bottom:18px;color:#1a1a2e;}
+  .section-title .company-color{color:var(--brand);}
+
+  .benefit-card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:16px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;}
+  .benefit-icon{font-size:20px;width:32px;text-align:center;flex-shrink:0;}
+  .benefit-title{font-size:14.5px;font-weight:700;color:#1a1a2e;margin-bottom:2px;}
+  .benefit-desc{font-size:13px;color:var(--brand);}
+
+  .check-card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:14px 18px;margin-bottom:10px;display:flex;align-items:center;gap:12px;font-size:14px;color:#1a1a2e;}
+  .check-icon{font-size:16px;flex-shrink:0;}
+
+  .testimonial-card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:18px;margin-bottom:12px;}
+  .t-quote{font-size:14px;color:#444;margin-bottom:12px;font-style:italic;}
+  .t-name{font-size:13px;font-weight:700;color:#1a1a2e;}
+  .t-location{font-size:12px;color:#888;}
+
+  .bottom-cta{text-align:center;padding:40px 20px;}
+  .bottom-cta h2{font-size:22px;font-weight:800;margin-bottom:10px;}
+  .bottom-cta p{font-size:14px;color:var(--brand);margin-bottom:24px;max-width:380px;margin-left:auto;margin-right:auto;}
+
+  .disclaimer{font-size:11px;color:#aaa;text-align:center;padding:0 20px 20px;line-height:1.5;}
+
+  footer{text-align:center;padding:28px 20px;border-top:1px solid #e8e8e8;}
+  footer p{font-size:12px;color:#999;}
+</style>
+</head>
+<body>
+<script>
+const JOB = {
+  pageTitle: "Get Paid From Home — PB System",
+  companyName: "PB System",
+  companyColor: "#0f7a4a",
+
+  heroHeadline: "Get Paid From Home with",
+  heroHeadline2: "PB System",
+  heroSub: "No experience required — get started in minutes",
+  heroTagline: "Discover the automated system that thousands of everyday people are already using to generate real income from home",
+
+  urgency: "🔥 Exclusive opportunity — limited access available right now",
+
+  steps: [
+    {
+      title: "Step 1 – Click Activate Now",
+      desc: "Press the button below to get instant access to the PB System system — takes under 2 minutes.",
+      muted: false
+    },
+    {
+      title: "Step 2 – Watch the Short Video",
+      desc: "On the next page, watch the quick video that explains exactly how the system works and how you start earning.",
+      muted: false
+    },
+    {
+      title: "Step 3 – Activate Your Account",
+      desc: "Follow the simple step-by-step setup. You'll be up and running in about 15 minutes — no tech skills needed.",
+      muted: false
+    },
+    {
+      title: "Step 4 – Start Earning",
+      desc: "Once activated, the system runs for you. Check your earnings daily and scale up as much as you want.",
+      muted: false
+    }
+  ],
+
+  benefits: [
+    { icon: "💰", title: "High Earning Potential",  desc: "Tap into a system designed for maximum profitability and returns" },
+    { icon: "⚡", title: "Quick & Easy Setup",      desc: "Get started in minutes with a simple, step-by-step process" },
+    { icon: "🤖", title: "AI-Powered System",       desc: "Automated tools do the heavy lifting — you just collect earnings" },
+    { icon: "🏠", title: "Work From Anywhere",      desc: "All you need is a phone, laptop, or tablet with internet access" },
+    { icon: "🕐", title: "Flexible Schedule",       desc: "Work on your own terms — no fixed hours, no boss" },
+    { icon: "✅", title: "Proven Results",           desc: "Join thousands of successful members already cashing in with PB System" }
+  ],
+
+  tasks: [
+    "Follow the simple step-by-step activation process",
+    "Use the AI-powered tools provided to you",
+    "Let the system work while you monitor your earnings",
+    "Scale up your income by repeating proven strategies",
+    "Cash out your earnings via PayPal, CashApp, or direct deposit"
+  ],
+
+  requirements: [
+    "18 years or older",
+    "Phone, laptop, or tablet with internet connection",
+    "No prior experience or technical skills needed",
+    "Willingness to follow a simple system",
+    "Available for at least 15–30 minutes to get set up"
+  ],
+
+  testimonials: [
+    { quote: "I was skeptical at first, but PB System is the real deal. I made my first $1,000 in just a week! It's completely changed my life.", name: "Jessica M.", location: "New York, USA" },
+    { quote: "The setup was unbelievably easy. I'm not a tech person, but I was up and running in 15 minutes. Now I'm seeing consistent daily profits.", name: "David L.", location: "London, UK" },
+    { quote: "Finally, a system that actually delivers on its promises. The support is fantastic and the results speak for themselves.", name: "Sarah K.", location: "Sydney, AU" },
+    { quote: "From $0 to $5,000/month in under 60 days. PB System's training and system are top-notch. Best investment I've ever made.", name: "Brian J.", location: "Dublin, IE" }
+  ],
+
+  closingTitle: "Ready to Start Your Success Story?",
+  closingDesc: "Your journey to online income is just one click away. Don't let this opportunity pass you by.",
+
+  applyUrl: "https://www.dogga.site/P2C8M62/BP65811/?source_id=hibird2BPS",
+
+  footerText: "© 2026 PB System. All rights reserved.",
+  disclaimer: "This is a promotional page for an affiliate offer. Results shown are not typical and your experience will vary based on effort, market conditions, and other factors. This is not financial advice."
+};
+
+document.title = JOB.pageTitle;
+document.documentElement.style.setProperty('--brand', JOB.companyColor);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    <div class="page">
+      <div class="hero">
+        <div style="text-align:center;">
+          <div style="width:80px;height:80px;border-radius:20px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f7a4a,#14a060);box-shadow:0 4px 24px rgba(15,122,74,0.35);">
+            <svg width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+              <!-- Button shape -->
+              <rect x="4" y="14" width="36" height="18" rx="9" fill="white" opacity="0.25"/>
+              <rect x="6" y="16" width="32" height="14" rx="7" fill="white" opacity="0.9"/>
+              <!-- Cursor arrow -->
+              <polygon points="24,22 24,34 27,30 30,36 32,35 29,29 33,28" fill="#0f7a4a"/>
+            </svg>
+          </div>
+        </div>
+        <h1 class="hero-headline">${JOB.heroHeadline}<br><span class="company-color">${JOB.heroHeadline2}</span></h1>
+        <p class="hero-sub">${JOB.heroSub}</p>
+        <p class="hero-tagline">${JOB.heroTagline}</p>
+      </div>
+
+      <div class="urgency-bar">${JOB.urgency}</div>
+
+      <div class="section">
+        ${JOB.steps.map(s => `
+          <div class="step-card">
+            <div class="step-title">${s.title}</div>
+            <div class="step-desc${s.muted?' muted':''}">${s.desc}</div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="cta-wrap">
+        <a href="${JOB.applyUrl}" class="btn-apply" target="_blank" rel="noopener">Activate Now — Get Instant Access</a>
+        <p class="cta-note">No experience required • Results may vary</p>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Why <span class="company-color">${JOB.companyName}</span>?</h2>
+        ${JOB.benefits.map(b => `
+          <div class="benefit-card">
+            <div class="benefit-icon">${b.icon}</div>
+            <div>
+              <div class="benefit-title">${b.title}</div>
+              <div class="benefit-desc">${b.desc}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">What You'll Be Doing</h2>
+        ${JOB.tasks.map(t => `
+          <div class="check-card">
+            <span class="check-icon">✅</span>
+            ${t}
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Requirements</h2>
+        ${JOB.requirements.map(r => `
+          <div class="check-card">
+            <span class="check-icon" style="color:#d4920a;">🔔</span>
+            ${r}
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Real People, Real Results</h2>
+        ${JOB.testimonials.map(t => `
+          <div class="testimonial-card">
+            <div class="t-quote">"${t.quote}"</div>
+            <div class="t-name">${t.name}</div>
+            <div class="t-location">${t.location}</div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="bottom-cta">
+        <h2>${JOB.closingTitle}</h2>
+        <p>${JOB.closingDesc}</p>
+        <a href="${JOB.applyUrl}" class="btn-apply" target="_blank" rel="noopener">Activate Now — Get Instant Access</a>
+      </div>
+
+      <div class="disclaimer">${JOB.disclaimer}</div>
+    </div>
+
+    <footer>
+      <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#0f7a4a,#14a060);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">
+        <svg width="20" height="20" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="14" width="36" height="18" rx="9" fill="white" opacity="0.25"/>
+          <rect x="6" y="16" width="32" height="14" rx="7" fill="white" opacity="0.9"/>
+          <polygon points="24,22 24,34 27,30 30,36 32,35 29,29 33,28" fill="#0f7a4a"/>
+        </svg>
+      </div>
+      <p>${JOB.footerText}</p>
+    </footer>
+  `;
+});
+</script>
+<div id="app"></div>
+</body>
+</html>
