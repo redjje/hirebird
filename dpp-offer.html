@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>You're Approved to Collect Online Payments — Direct Profit Policy</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:#f8f8f5;color:#1a1a2e;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  .page{max-width:600px;margin:0 auto;padding:32px 20px 0;}
+
+  .hero{text-align:center;padding-bottom:28px;}
+  .company-badge{width:80px;height:80px;border-radius:20px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a3a8f,#2557d6);box-shadow:0 4px 24px rgba(26,58,143,0.35);}
+  .hero-headline{font-size:clamp(22px,5vw,28px);font-weight:800;line-height:1.2;margin-bottom:10px;color:#1a1a2e;}
+  .hero-headline .company-color{color:var(--brand);}
+  .hero-sub{font-size:15px;color:#555;margin-bottom:4px;}
+  .hero-tagline{font-size:13.5px;color:#888;max-width:420px;margin:0 auto;}
+
+  .approval-box{background:#e8f5e9;border:2px solid #4caf50;border-radius:12px;padding:16px 20px;text-align:center;margin-bottom:28px;}
+  .approval-box .approved{font-size:13px;font-weight:700;color:#2e7d32;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+  .approval-box .amount{font-size:24px;font-weight:800;color:#1a1a2e;}
+  .approval-box .amount span{color:#2e7d32;}
+  .approval-box .sub{font-size:13px;color:#555;margin-top:4px;}
+
+  .urgency-bar{background:#fff8e1;border:1.5px solid #f0b429;border-radius:10px;padding:12px 16px;text-align:center;font-size:13.5px;font-weight:700;color:#7a5a00;margin-bottom:28px;}
+
+  .section{margin-bottom:36px;}
+  .step-card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:16px 18px;margin-bottom:12px;}
+  .step-title{font-size:14.5px;font-weight:700;color:#1a1a2e;margin-bottom:4px;}
+  .step-desc{font-size:13.5px;color:var(--brand);}
+  .step-desc.muted{color:#666;}
+
+  .cta-wrap{text-align:center;margin:8px 0 36px;}
+  .btn-apply{display:inline-block;background:#1a3a8f;color:#fff;font-size:16px;font-weight:700;padding:15px 48px;border-radius:999px;cursor:pointer;border:none;font-family:inherit;transition:background .15s;box-shadow:0 6px 20px rgba(26,58,143,0.3);}
+  .btn-apply:hover{background:#122a6e;}
+  .cta-note{font-size:12.5px;color:#888;margin-top:10px;}
+
+  .section-title{font-size:20px;font-weight:800;text-align:center;margin-bottom:18px;color:#1a1a2e;}
+  .section-title .company-color{color:var(--brand);}
+
+  .benefit-card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:16px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;}
+  .benefit-icon{font-size:20px;width:32px;text-align:center;flex-shrink:0;}
+  .benefit-title{font-size:14.5px;font-weight:700;color:#1a1a2e;margin-bottom:2px;}
+  .benefit-desc{font-size:13px;color:var(--brand);}
+
+  .check-card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:14px 18px;margin-bottom:10px;display:flex;align-items:center;gap:12px;font-size:14px;color:#1a1a2e;}
+  .check-icon{font-size:16px;flex-shrink:0;}
+
+  .payout-card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:16px 18px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;}
+  .payout-method{font-size:14px;font-weight:600;color:#1a1a2e;}
+  .payout-desc{font-size:12.5px;color:#888;margin-top:2px;}
+  .payout-check{font-size:18px;}
+
+  .testimonial-card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:18px;margin-bottom:12px;}
+  .t-quote{font-size:14px;color:#444;margin-bottom:12px;font-style:italic;}
+  .t-name{font-size:13px;font-weight:700;color:#1a1a2e;}
+  .t-location{font-size:12px;color:#888;}
+
+  .bottom-cta{text-align:center;padding:40px 20px;}
+  .bottom-cta h2{font-size:22px;font-weight:800;margin-bottom:10px;}
+  .bottom-cta p{font-size:14px;color:var(--brand);margin-bottom:24px;max-width:380px;margin-left:auto;margin-right:auto;}
+
+  .disclaimer{font-size:11px;color:#aaa;text-align:center;padding:0 20px 20px;line-height:1.5;}
+
+  footer{text-align:center;padding:28px 20px;border-top:1px solid #e8e8e8;}
+  footer p{font-size:12px;color:#999;}
+</style>
+</head>
+<body>
+<script>
+const JOB = {
+  pageTitle: "You're Approved to Collect Online Payments — Direct Profit Policy",
+  companyName: "Direct Profit Policy",
+  companyColor: "#1a3a8f",
+
+  heroHeadline: "You're Approved to",
+  heroHeadline2: "Collect Online Payments",
+  heroSub: "Your payout of $839.50 is waiting for you",
+  heroTagline: "No confusing tech. No complicated websites. No experience needed.",
+
+  approvalAmount: "$839.50",
+
+  urgency: "⏳ Enrollment window is open — your spot is reserved for a limited time",
+
+  steps: [
+    {
+      title: "Step 1 – Click Begin Enrollment",
+      desc: "Press the blue button below to open your enrollment page and begin the short setup process.",
+      muted: false
+    },
+    {
+      title: "Step 2 – Confirm Your Eligibility",
+      desc: "Answer a few quick questions to confirm this policy is the right fit for you — takes under 2 minutes.",
+      muted: false
+    },
+    {
+      title: "Step 3 – Select Your Payout Method",
+      desc: "Choose how you'd like to receive your payouts — PayPal, Wise, or direct bank transfer.",
+      muted: false
+    },
+    {
+      title: "Step 4 – Watch the Short Video",
+      desc: "A brief walkthrough explains exactly how your Direct Profit Policy pays out and what to do next.",
+      muted: false
+    },
+    {
+      title: "Step 5 – Enter Your Email & Activate",
+      desc: "Submit your email to activate your policy and start collecting your daily payouts.",
+      muted: false
+    }
+  ],
+
+  benefits: [
+    { icon: "💰", title: "$839.50 Waiting For You",  desc: "Your payout is pre-approved and ready to be claimed today" },
+    { icon: "📱", title: "Works On Any Device",      desc: "Phone, tablet, or computer — no special setup required" },
+    { icon: "⚡", title: "Quick Setup",              desc: "Watch a short walkthrough and you're ready to collect" },
+    { icon: "🏦", title: "Multiple Payout Options",  desc: "PayPal, Wise, or direct bank transfer — your choice" },
+    { icon: "🔒", title: "Private Program",          desc: "Exclusive access — not available on the open market" },
+    { icon: "🎓", title: "No Experience Needed",     desc: "Beginner-friendly — anyone can follow the simple steps" }
+  ],
+
+  eligibility: [
+    "You have access to a phone, tablet, or computer",
+    "You can follow simple on-screen instructions",
+    "You want a straightforward walkthrough before entering your details",
+    "No technical experience or background required"
+  ],
+
+  payouts: [
+    { method: "PayPal", desc: "Payouts land directly in your PayPal balance" },
+    { method: "Wise", desc: "Ideal for international policyholders" },
+    { method: "Bank Transfer", desc: "Straight to your checking account" }
+  ],
+
+  testimonials: [
+    { quote: "I was skeptical but the walkthrough made everything so clear. I followed the steps and my first payout came through within days.", name: "Michael R.", location: "Texas, USA" },
+    { quote: "The setup was so simple. I had everything activated in under 15 minutes. Now I get consistent payouts without doing anything complicated.", name: "Amanda S.", location: "Florida, USA" },
+    { quote: "I used part of my first payout to take my family on a weekend trip. This program really does what it says.", name: "Rachel K.", location: "California, USA" }
+  ],
+
+  closingTitle: "Your Policy Is Ready — Don't Let It Expire",
+  closingDesc: "Watch the short walkthrough and activate your Direct Profit Policy to start collecting your daily payouts.",
+
+  applyUrl: "https://www.wazx.site/P2C8M62/95J3SBP/?source_id=hibird2DP",
+
+  footerText: "© 2026 Direct Profit Policy. All rights reserved.",
+  disclaimer: "Direct Profit Policy is a private program and is not affiliated with, endorsed by, or connected to any government agency. Testimonials and examples found on this page are results forwarded by users and are not intended to represent or guarantee that anyone will achieve the same or similar results. Individual results vary. This is not financial advice."
+};
+
+document.title = JOB.pageTitle;
+document.documentElement.style.setProperty('--brand', JOB.companyColor);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    <div class="page">
+      <div class="hero">
+        <div style="text-align:center;">
+          <div class="company-badge">
+            <svg width="42" height="42" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="10" width="34" height="22" rx="5" fill="white" opacity="0.2"/>
+              <rect x="6" y="12" width="30" height="18" rx="4" fill="white" opacity="0.9"/>
+              <text x="21" y="25" text-anchor="middle" font-family="Inter,Arial" font-weight="800" font-size="11" fill="#1a3a8f">DPP</text>
+            </svg>
+          </div>
+        </div>
+        <h1 class="hero-headline">${JOB.heroHeadline}<br><span class="company-color">${JOB.heroHeadline2}</span></h1>
+        <p class="hero-sub">${JOB.heroSub}</p>
+        <p class="hero-tagline">${JOB.heroTagline}</p>
+      </div>
+
+      <div class="approval-box">
+        <div class="approved">✅ Notice of Approval</div>
+        <div class="amount">Your Payout of <span>${JOB.approvalAmount}</span> Is Waiting</div>
+        <div class="sub">Beginner friendly · Pays directly to your account</div>
+      </div>
+
+      <div class="urgency-bar">${JOB.urgency}</div>
+
+      <div class="section">
+        ${JOB.steps.map(s => `
+          <div class="step-card">
+            <div class="step-title">${s.title}</div>
+            <div class="step-desc${s.muted?' muted':''}">${s.desc}</div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="cta-wrap">
+        <a href="${JOB.applyUrl}" class="btn-apply" target="_blank" rel="noopener">Begin Enrollment Now</a>
+        <p class="cta-note">No experience required • Simple step-by-step walkthrough</p>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Why Join the <span class="company-color">Direct Profit Policy</span>?</h2>
+        ${JOB.benefits.map(b => `
+          <div class="benefit-card">
+            <div class="benefit-icon">${b.icon}</div>
+            <div>
+              <div class="benefit-title">${b.title}</div>
+              <div class="benefit-desc">${b.desc}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Are You Eligible?</h2>
+        ${JOB.eligibility.map(e => `
+          <div class="check-card">
+            <span class="check-icon">✅</span>
+            ${e}
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Choose Your Payout Method</h2>
+        ${JOB.payouts.map(p => `
+          <div class="payout-card">
+            <div>
+              <div class="payout-method">${p.method}</div>
+              <div class="payout-desc">${p.desc}</div>
+            </div>
+            <span class="payout-check">✅</span>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Real People, Real Payouts</h2>
+        ${JOB.testimonials.map(t => `
+          <div class="testimonial-card">
+            <div class="t-quote">"${t.quote}"</div>
+            <div class="t-name">${t.name}</div>
+            <div class="t-location">${t.location}</div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="bottom-cta">
+        <h2>${JOB.closingTitle}</h2>
+        <p>${JOB.closingDesc}</p>
+        <a href="${JOB.applyUrl}" class="btn-apply" target="_blank" rel="noopener">Begin Enrollment Now</a>
+      </div>
+
+      <div class="disclaimer">${JOB.disclaimer}</div>
+    </div>
+
+    <footer>
+      <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#1a3a8f,#2557d6);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:10px;font-weight:800;color:#fff;">DPP</div>
+      <p>${JOB.footerText}</p>
+    </footer>
+  `;
+});
+</script>
+<div id="app"></div>
+</body>
+</html>
