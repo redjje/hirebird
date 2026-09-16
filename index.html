@@ -2,873 +2,766 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Interflexjob — Remote Work Opportunities</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>HireBird — Job Board</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #F6F7F9;
-    --card: #FFFFFF;
-    --border: #E9EBEF;
-    --ink: #17181C;
-    --ink-soft: #6B7280;
-    --blue: #2F5FE0;
-    --blue-deep: #2447B3;
-    --pill-bg: #F1F3F7;
-    --pill-text: #4B5160;
-    --orange-bg: #FEF3E6; --orange-text: #B4640A;
-    --green-bg: #E9F8EF;  --green-text: #17924F;
-    --blue-bg: #E8EEFE;   --blue-text: #2F5FE0;
-    --shadow: 0 1px 2px rgba(16,24,40,0.04), 0 1px 3px rgba(16,24,40,0.06);
+    --navy:#0a1e42;
+    --blue:#2557a7;
+    --blue-light:#eaf1fb;
+    --accent:#ff6b35;
+    --text:#5c6b82;
+    --dark:#1b2942;
+    --border:#e7ebf3;
+    --bg:#f7f9fc;
+    --radius:12px;
   }
   *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
-    background:var(--bg);
-    color:var(--ink);
-    font-family:'Inter',system-ui,sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:640px;margin:0 auto;padding:0 20px 60px;}
+  body{margin:0;font-family:'Inter',sans-serif;color:var(--text);background:#fff;line-height:1.6;}
+  h1,h2,h3,h4{font-family:'Poppins',sans-serif;color:var(--dark);margin:0;}
   a{text-decoration:none;color:inherit;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  img{max-width:100%;display:block;}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;font-weight:600;font-size:14px;border:none;cursor:pointer;}
+  .btn-accent{background:var(--accent);color:#fff;}
+  .btn-accent:hover{background:#e85a29;}
+  .btn-outline{border:1.5px solid var(--border);color:var(--dark);background:#fff;}
+  .btn-outline:hover{border-color:var(--blue);}
+  .btn-block{width:100%;justify-content:center;}
 
-  header{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:24px 0 20px;
+  /* TOPBAR */
+  .topbar{background:var(--navy);color:#c9d3e6;font-size:13px;padding:8px 0;}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+  .topbar .contact{display:flex;gap:22px;flex-wrap:wrap;}
+  .topbar a{color:#c9d3e6;}
+  .topbar .social{display:flex;gap:14px;}
+
+  /* NAV */
+  header.main{border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;z-index:50;}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0;}
+  .logo{font-family:'Poppins',sans-serif;font-weight:800;font-size:22px;color:var(--navy);display:flex;align-items:center;gap:8px;}
+  .logo span{color:var(--accent);}
+  .nav-links{display:flex;gap:30px;font-weight:500;font-size:15px;color:var(--dark);}
+  .nav-links a:hover{color:var(--blue);}
+  .nav-right{display:flex;gap:14px;align-items:center;}
+  .nav-jobs-quick{display:none;font-weight:600;font-size:14px;color:var(--dark);white-space:nowrap;margin-left:6px;}
+  @media(max-width:900px){.nav-jobs-quick{display:inline-flex;}}
+  @media(max-width:900px){#nav-post-btn{display:none;}}
+  .nav-post-mobile{display:none;padding:12px 0;font-weight:600;color:var(--blue);cursor:pointer;}
+  @media(max-width:900px){.nav-post-mobile{display:block;}}
+  .nav-divider{display:none;color:var(--border);font-size:14px;}
+  @media(max-width:900px){.nav-divider{display:inline-flex;}}
+  @media(max-width:900px){
+    #nav-signin-btn{border:none;padding:0;background:none;color:var(--dark);font-weight:600;font-size:14px;white-space:nowrap;}
+    #nav-signin-btn:hover{background:none;color:var(--blue);}
   }
-  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;}
-  .logo-mark{
-    width:34px;height:34px;border-radius:9px;
-    background:linear-gradient(135deg,var(--blue),var(--blue-deep));
-    display:flex;align-items:center;justify-content:center;
+  @media(max-width:600px){
+    .nav-right{gap:8px;}
+    .nav-right .btn{padding:8px 14px;font-size:13px;white-space:nowrap;}
   }
-  .logo span.f{color:var(--ink);}
-  .logo span.b{color:var(--blue);}
-  .add-btn{
-    display:flex;align-items:center;gap:6px;
-    background:var(--ink);color:#fff;border:none;
-    padding:9px 14px;border-radius:9px;font-weight:600;font-size:0.85rem;cursor:pointer;
-  }
-  .add-btn:hover{background:#000;}
-  .logout-btn{
-    background:none;border:none;color:#9AA0AC;font-size:0.78rem;
-    cursor:pointer;text-decoration:underline;padding:0;
+  .nav-toggle{display:none;background:none;border:1px solid var(--border);border-radius:8px;padding:8px 10px;cursor:pointer;font-size:18px;color:var(--dark);}
+  @media(max-width:900px){
+    .nav-links{
+      display:none;flex-direction:column;gap:0;position:absolute;top:100%;left:0;right:0;
+      background:#fff;border-bottom:1px solid var(--border);padding:8px 24px 16px;
+    }
+    .nav-links.open{display:flex;}
+    .nav-links a{padding:12px 0;border-bottom:1px solid var(--border);}
+    .nav-links a:last-child{border-bottom:none;}
+    .nav-toggle{display:inline-flex;}
   }
 
-  .hero h1{font-size:1.9rem;font-weight:800;line-height:1.22;margin:6px 0 8px;}
-  .hero p{color:var(--ink-soft);font-size:1rem;margin:0 0 22px;}
+  /* HERO */
+  .hero{background:var(--blue-light);padding:60px 0 70px;overflow:hidden;}
+  .hero-grid{display:block;}
+  .hero-eyebrow{display:inline-block;background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 16px;font-size:13px;font-weight:600;color:var(--blue);margin-bottom:18px;}
+  .hero h1{font-size:clamp(32px,4.2vw,50px);line-height:1.15;font-weight:800;}
+  .hero h1 em{color:var(--accent);font-style:normal;}
+  .hero p{font-size:16px;margin:18px 0 26px;max-width:46ch;}
 
-  .filter-bar{display:flex;gap:10px;margin-bottom:26px;}
-  .filter-bar input{
-    flex:1;background:#fff;border:1px solid var(--border);border-radius:10px;
-    padding:11px 14px;font-size:0.92rem;font-family:inherit;color:var(--ink);
+  /* SEARCH PANEL */
+  .search-panel{
+    background:#fff;border-radius:14px;box-shadow:0 20px 50px -20px rgba(10,30,66,0.25);
+    padding:22px;display:grid;grid-template-columns:1.3fr 1fr 1fr auto;gap:14px;
+    margin:40px auto 0;position:relative;z-index:5;
   }
-  .filter-bar input::placeholder{color:#9AA0AC;}
-  .filter-bar select{
-    background:#fff;border:1px solid var(--border);border-radius:10px;
-    padding:11px 12px;font-size:0.88rem;font-family:inherit;color:var(--ink-soft);
-  }
+  @media(max-width:860px){.search-panel{grid-template-columns:1fr;margin-top:24px;}}
+  .field label{display:block;font-size:12px;font-weight:600;color:var(--dark);margin-bottom:6px;}
+  .field select,.field input{width:100%;border:1px solid var(--border);border-radius:8px;padding:11px 12px;font-size:14px;font-family:inherit;color:var(--dark);background:#fff;}
+  .field select:focus,.field input:focus{outline:2px solid var(--blue);outline-offset:1px;}
 
-  .eyebrow{
-    font-size:0.72rem;font-weight:700;letter-spacing:0.08em;color:#9AA0AC;
-    margin-bottom:14px;
-  }
+  /* STATS */
+  .stats{padding:50px 0;}
+  .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center;}
+  @media(max-width:760px){.stats-grid{grid-template-columns:1fr;}}
+  .stat-icon{width:52px;height:52px;border-radius:50%;background:var(--blue-light);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:22px;}
+  .stat-num{font-family:'Poppins',sans-serif;font-weight:800;font-size:28px;color:var(--navy);}
+  .stat-label{font-size:14px;color:var(--text);}
 
-  .grid{display:flex;flex-direction:column;gap:16px;}
-  .card{
-    background:var(--card);border:1px solid var(--border);border-radius:16px;
-    padding:18px 18px 16px;position:relative;box-shadow:var(--shadow);
-  }
-  .card-del{
-    position:absolute;top:12px;left:12px;width:24px;height:24px;border-radius:7px;
-    background:rgba(255,255,255,0.9);border:1px solid var(--border);
-    display:flex;align-items:center;justify-content:center;cursor:pointer;
-    opacity:0;transition:opacity .15s ease;
-  }
-  .card:hover .card-del{opacity:1;}
-  .card-del:hover{background:#FEE;border-color:#F3C2C2;}
-  .card-del svg{width:13px;height:13px;stroke:#B4231F;}
-  .card-edit{
-    position:absolute;top:12px;left:42px;width:24px;height:24px;border-radius:7px;
-    background:rgba(255,255,255,0.9);border:1px solid var(--border);
-    display:flex;align-items:center;justify-content:center;cursor:pointer;
-    opacity:0;transition:opacity .15s ease;
-  }
-  .card:hover .card-edit{opacity:1;}
-  .card-edit:hover{background:#EEF2FE;border-color:#C7D3F7;}
-  .card-edit svg{width:13px;height:13px;stroke:#2F5FE0;}
-  .card-move{
-    position:absolute;top:12px;width:24px;height:24px;border-radius:7px;
-    background:rgba(255,255,255,0.9);border:1px solid var(--border);
-    display:flex;align-items:center;justify-content:center;cursor:pointer;
-    opacity:0;transition:opacity .15s ease;
-  }
-  .card-move.up{left:72px;}
-  .card-move.down{left:102px;}
-  .card:hover .card-move{opacity:1;}
-  .card-move:hover{background:#F1F3F7;}
-  .card-move.disabled{pointer-events:none;opacity:0.3 !important;}
-  .card-move svg{width:13px;height:13px;stroke:#4B5160;}
+  section{padding:60px 0;}
+  .section-head{text-align:center;max-width:600px;margin:0 auto 40px;}
+  .eyebrow-small{color:var(--accent);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.06em;}
+  .section-head h2{font-size:32px;margin-top:10px;}
 
-  .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px;}
-  .icon-badge{
-    width:46px;height:46px;border-radius:12px;flex-shrink:0;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .icon-badge svg{width:22px;height:22px;}
-  .flag{
-    display:flex;align-items:center;gap:4px;
-    font-size:0.72rem;font-weight:700;padding:4px 9px;border-radius:999px;white-space:nowrap;
-  }
-  .flag svg{width:11px;height:11px;}
-  .flag.popular{background:var(--orange-bg);color:var(--orange-text);}
-  .flag.trending{background:var(--blue-bg);color:var(--blue-text);}
-  .flag.new{background:var(--green-bg);color:var(--green-text);}
+  /* CATEGORIES */
+  .cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  @media(max-width:900px){.cat-grid{grid-template-columns:repeat(2,1fr);}}
+  .cat-card{border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;transition:.15s;display:block;}
+  .cat-card:hover{border-color:var(--blue);box-shadow:0 12px 30px -18px rgba(10,30,66,0.3);transform:translateY(-3px);}
+  .cat-icon{width:48px;height:48px;border-radius:50%;background:var(--blue-light);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+  .cat-card h3{font-size:16px;}
+  .cat-count{font-size:13px;color:var(--text);margin-top:4px;}
 
-  .card h3{font-size:1.05rem;font-weight:700;margin:0 0 4px;line-height:1.3;}
-  .card p.desc{font-size:0.9rem;color:var(--ink-soft);margin:0 0 12px;line-height:1.4;}
+  /* BANNER */
+  .banner{background:var(--navy);border-radius:20px;padding:50px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:24px;color:#fff;}
+  @media(max-width:760px){.banner{grid-template-columns:1fr;text-align:center;}}
+  .banner h2{color:#fff;font-size:28px;}
+  .banner p{color:#b9c4dd;margin-top:10px;max-width:50ch;}
 
-  .pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
-  .pill{
-    display:flex;align-items:center;gap:5px;
-    background:var(--pill-bg);color:var(--pill-text);
-    font-size:0.78rem;font-weight:500;padding:5px 10px;border-radius:999px;
-  }
-  .pill svg{width:12px;height:12px;stroke:var(--pill-text);}
+  /* JOB CARDS */
+  .job-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:900px){.job-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:640px){.job-grid{grid-template-columns:1fr;}}
+  .job-card{border:1px solid var(--border);border-radius:var(--radius);padding:22px;transition:.15s;}
+  .job-card:hover{box-shadow:0 14px 34px -20px rgba(10,30,66,0.3);border-color:var(--blue);}
+  .job-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
+  .job-logo{width:46px;height:46px;border-radius:10px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-weight:700;color:var(--blue);}
+  .job-time{font-size:12px;color:var(--text);}
+  .job-card h3{font-size:16px;margin-bottom:6px;}
+  .job-company{font-size:13px;color:var(--text);margin-bottom:12px;}
+  .job-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+  .job-tag{font-size:11px;border:1px solid var(--border);border-radius:999px;padding:3px 10px;color:var(--text);}
+  .job-card-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:14px;}
+  .job-pay{font-weight:700;color:var(--navy);font-size:14.5px;}
 
-  .view-btn{
-    display:flex;align-items:center;justify-content:center;gap:8px;
-    width:100%;background:var(--blue);color:#fff;border:none;
-    padding:13px;border-radius:11px;font-weight:700;font-size:0.95rem;cursor:pointer;
-  }
-  .view-btn:hover{background:var(--blue-deep);}
-  .view-btn svg{width:15px;height:15px;}
-  .view-btn-secondary{
-    display:flex;align-items:center;justify-content:center;gap:8px;
-    width:100%;background:var(--pill-bg);color:var(--ink);border:none;
-    padding:13px;border-radius:11px;font-weight:600;font-size:0.92rem;cursor:pointer;
-  }
-  .view-btn-secondary:hover{background:#E4E7EC;}
-  .view-btn-secondary svg{width:14px;height:14px;stroke:var(--ink);}
+  /* TESTIMONIALS */
+  .t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:860px){.t-grid{grid-template-columns:1fr;}}
+  .t-card{border:1px solid var(--border);border-radius:var(--radius);padding:26px;}
+  .quote-mark{font-family:'Poppins',sans-serif;font-size:36px;color:var(--blue-light);font-weight:800;line-height:1;}
+  .t-card p{font-size:14.5px;margin:10px 0 18px;}
+  .t-person{display:flex;align-items:center;gap:12px;}
+  .t-avatar{width:42px;height:42px;border-radius:50%;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);font-size:14px;}
+  .t-name{font-weight:700;font-size:14px;color:var(--dark);}
+  .t-role{font-size:12.5px;color:var(--text);}
 
-  .empty-state{text-align:center;padding:50px 10px;color:#9AA0AC;font-size:0.92rem;}
+  /* BLOG */
+  .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:860px){.blog-grid{grid-template-columns:1fr;}}
+  .blog-card{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .blog-img{height:150px;background:var(--blue-light);}
+  .blog-body{padding:18px;}
+  .blog-date{font-size:12px;color:var(--accent);font-weight:600;}
+  .blog-card h3{font-size:16px;margin:8px 0;}
 
-  footer{padding:30px 0 10px;border-top:1px solid var(--border);margin-top:36px;}
-  footer p{font-size:0.76rem;line-height:1.6;color:#9AA0AC;}
+  /* FOOTER */
+  footer{background:var(--navy);color:#b9c4dd;padding:56px 0 24px;margin-top:20px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:32px;margin-bottom:36px;}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr;}}
+  .foot-col h4{color:#fff;font-size:14px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .foot-col a{display:block;margin-bottom:10px;font-size:14px;}
+  .foot-col a:hover{color:#fff;}
+  .foot-logo{font-family:'Poppins',sans-serif;font-weight:800;font-size:20px;color:#fff;margin-bottom:12px;}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,0.12);padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px;}
 
-  .overlay{
-    display:none;position:fixed;inset:0;background:rgba(15,17,21,0.45);
-    align-items:flex-end;justify-content:center;z-index:50;
-  }
-  .overlay.open{display:flex;}
-  @media (min-width:600px){ .overlay{align-items:center;} }
-
-  .sheet{
-    background:#fff;width:100%;max-width:480px;border-radius:20px 20px 0 0;
-    padding:22px 22px 26px;max-height:88vh;overflow-y:auto;
-  }
-  @media (min-width:600px){ .sheet{border-radius:18px;} }
-
-  .sheet-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px;}
-  .sheet-top h2{font-size:1.2rem;font-weight:700;margin:0;line-height:1.3;}
-  .close-btn{
-    width:30px;height:30px;border-radius:8px;border:none;background:var(--pill-bg);
-    display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;
-  }
-  .close-btn svg{width:15px;height:15px;}
-
-  .info-box{
-    display:flex;align-items:center;gap:12px;
-    background:#F9FAFB;border:1px solid var(--border);border-radius:12px;
-    padding:12px 14px;margin-bottom:12px;
-  }
-  .info-box .ic{
-    width:34px;height:34px;border-radius:9px;background:var(--blue-bg);
-    display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  }
-  .info-box .ic svg{width:16px;height:16px;stroke:var(--blue);}
-  .info-box .label{font-size:0.76rem;color:var(--ink-soft);}
-  .info-box .value{font-size:0.95rem;font-weight:700;}
-
-  .progress-dots{display:flex;justify-content:center;gap:6px;margin:2px 0 16px;}
-  .progress-dots span{width:6px;height:6px;border-radius:50%;background:var(--border);}
-  .progress-dots span.active{background:var(--blue);width:16px;border-radius:3px;}
-  .back-link{
-    display:block;width:100%;background:none;border:none;text-align:center;
-    color:var(--ink-soft);font-size:0.85rem;font-weight:600;padding:12px 0 0;cursor:pointer;
-  }
-  .back-link:hover{color:var(--ink);}
-
-  .field{margin-bottom:14px;}
-  .field label{display:block;font-size:0.82rem;font-weight:600;margin-bottom:6px;}
-  .field input, .field select, .field textarea{
-    width:100%;border:1px solid var(--border);border-radius:9px;padding:10px 12px;
-    font-family:inherit;font-size:0.9rem;color:var(--ink);
-  }
-  .field textarea{resize:vertical;min-height:60px;}
-  .step-field-row{display:flex;gap:8px;margin-bottom:8px;align-items:center;}
-  .step-field-row input{flex:1;}
-  .step-field-remove{
-    width:34px;height:34px;border-radius:9px;border:1px solid var(--border);
-    background:#fff;display:flex;align-items:center;justify-content:center;
-    cursor:pointer;flex-shrink:0;
-  }
-  .step-field-remove:hover{background:#FEE;border-color:#F3C2C2;}
-  .step-field-remove svg{width:13px;height:13px;stroke:#B4231F;}
-  .field input[type="file"]{padding:8px;}
-  #image-preview.show{display:flex !important;}
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-  .swatches{display:flex;gap:8px;margin-top:2px;}
-  .swatch{width:28px;height:28px;border-radius:8px;cursor:pointer;border:2px solid transparent;}
-  .swatch.sel{border-color:var(--ink);}
-  .checkline{display:flex;align-items:center;gap:8px;font-size:0.88rem;margin-bottom:16px;}
-  .submit-btn{
-    width:100%;background:var(--blue);color:#fff;border:none;padding:13px;
-    border-radius:11px;font-weight:700;font-size:0.95rem;cursor:pointer;margin-top:4px;
-  }
-  .submit-btn:hover{background:var(--blue-deep);}
+  /* MODAL */
+  .modal-backdrop{position:fixed;inset:0;background:rgba(10,20,42,0.55);display:none;align-items:center;justify-content:center;z-index:200;padding:20px;}
+  .modal-backdrop.open{display:flex;}
+  .modal{background:#fff;border-radius:14px;padding:28px;max-width:420px;width:100%;max-height:88vh;overflow-y:auto;}
+  .modal h3{font-size:20px;margin-bottom:6px;}
+  .modal p{font-size:14px;margin:0 0 18px;}
+  .modal .field{margin-bottom:12px;}
+  .modal-close{float:right;background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;}
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <header>
-    <div class="logo">
-      <div class="logo-mark">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#fff" stroke-width="2.2"/><line x1="21" y1="21" x2="16.2" y2="16.2" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
-      </div>
-      <span class="f">Inter<span class="b">flexjob</span></span>
+<div class="topbar">
+  <div class="wrap">
+    <div class="contact">
+      <span>65 Sunset Ave, CA 90026</span>
+      <span>support@hirebird.co</span>
     </div>
-    <div id="adminControls" style="display:none;align-items:center;gap:10px;">
-      <button class="add-btn" onclick="openAddModal()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><line x1="5" y1="12" x2="19" y2="12" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>
-        Add job
-      </button>
-      <button class="add-btn" style="background:var(--pill-bg);color:var(--ink);" onclick="window.location.href='analytics.html?admin='+encodeURIComponent(ADMIN_KEY)">
-        Analytics
-      </button>
-      <button class="logout-btn" onclick="adminLogout()" title="Exit admin mode">Log out</button>
+    <div class="social">
+      <a href="#">Facebook</a><a href="#">X</a><a href="#">LinkedIn</a>
     </div>
-  </header>
-
-  <div class="hero">
-    <h1>Explore remote work opportunities</h1>
-    <p>Explore opportunities that match your interests.</p>
   </div>
-
-  <div class="filter-bar">
-    <input id="search" type="text" placeholder="Search opportunities...">
-    <select id="sort">
-      <option value="default">Newest</option>
-      <option value="title">A–Z</option>
-    </select>
-  </div>
-
-  <div class="eyebrow">AVAILABLE OPPORTUNITIES</div>
-  <div class="grid" id="grid"></div>
-
-  <footer>
-    <p>Independent job-search service. Listings are provided by third parties. Brand names and logos belong to their respective owners and do not imply affiliation or endorsement. We may receive compensation for qualifying applications.</p>
-  </footer>
 </div>
 
-<div class="overlay" id="viewOverlay">
-  <div class="sheet" id="viewSheet"></div>
-</div>
+<header class="main">
+  <div class="wrap">
+    <nav>
+      <a class="logo" href="index.html">
+        <svg width="26" height="26" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+          <path d="M2 25C7 15 15 9 23 11C25 6 32 3 38 6C32 9 28 15 24 17C21 24 14 27 7 26C5 26 3 25.5 2 25Z" fill="#ff6b35"/>
+          <circle cx="31" cy="9" r="1.7" fill="#0a1e42"/>
+        </svg>
+        <span style="display:flex;">Hire<span style="color:var(--accent);">Bird</span></span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="#categories">Categories</a>
+        <a href="#stories">Stories</a>
+        <a href="#blog">Blog</a>
+        <a href="#" class="nav-post-mobile" onclick="handlePostClick();return false;">Post a job</a>
+      </div>
+      <div class="nav-right">
+        <a class="nav-jobs-quick" href="jobs.html">Jobs</a>
+        <span class="nav-divider">|</span>
+        <a href="analytics.html" id="nav-analytics-link" style="display:none;font-weight:600;font-size:14px;color:var(--dark);">Analytics</a>
+        <a class="btn btn-outline" href="#" id="nav-signin-btn" onclick="handleSignInClick();return false;">Sign in</a>
+        <a class="btn btn-accent" href="#" id="nav-post-btn" onclick="handlePostClick();return false;">Post a job</a>
+        <button class="nav-toggle" onclick="toggleNavMenu()" aria-label="Toggle menu">☰</button>
+      </div>
+    </nav>
+  </div>
+</header>
 
-<div class="overlay" id="addOverlay">
-  <div class="sheet">
-    <div class="sheet-top">
-      <h2 id="modalTitle">Add a job listing</h2>
-      <button class="close-btn" onclick="closeAddModal()">
-        <svg viewBox="0 0 24 24" fill="none"><line x1="6" y1="6" x2="18" y2="18" stroke="#333" stroke-width="2" stroke-linecap="round"/><line x1="18" y1="6" x2="6" y2="18" stroke="#333" stroke-width="2" stroke-linecap="round"/></svg>
-      </button>
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div style="max-width:640px;margin:0 auto;text-align:center;">
+        <span class="hero-eyebrow">🐦 12,400+ live listings</span>
+        <h1>Your dream <em>remote</em> job, in one place.</h1>
+        <p style="margin-left:auto;margin-right:auto;">HireBird gathers flexible, work-from-anywhere jobs the moment they open — remote roles, freelance gigs, and side-income work, refreshed daily.</p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;">
+          <a class="btn btn-accent" href="#board">Get started</a>
+          <a class="btn btn-outline" href="#" onclick="handlePostClick();return false;">Post a job</a>
+        </div>
+      </div>
     </div>
-    <form id="jobForm" onsubmit="submitJob(event)">
+
+    <div class="search-panel">
       <div class="field">
-        <label>Title</label>
-        <input required id="f-title" placeholder="e.g. Podcast Ratings - Spotify">
-      </div>
-      <div class="field">
-        <label>Short description</label>
-        <input required id="f-desc" placeholder="e.g. Explore podcast ratings opportunities">
-      </div>
-      <div class="row2">
-        <div class="field">
-          <label>Region</label>
-          <input required id="f-region" placeholder="USA / Global">
-        </div>
-        <div class="field">
-          <label>Type</label>
-          <input required id="f-type" placeholder="Remote / Flexible / Part-time">
-        </div>
-      </div>
-      <div class="field">
-        <label>Icon</label>
-        <select id="f-icon">
-          <option value="headphones">Headphones</option>
-          <option value="music">Music note</option>
-          <option value="clapper">Movie clapper</option>
-          <option value="flask">App / testing</option>
-          <option value="chat">Chat / moderation</option>
-          <option value="briefcase">Briefcase</option>
+        <label for="cat">Category</label>
+        <select id="cat">
+          <option>Select category</option>
+          <option>Customer Service</option>
+          <option>Content & Writing</option>
+          <option>Marketing</option>
+          <option>Data & Surveys</option>
+          <option>Admin & Support</option>
         </select>
       </div>
       <div class="field">
-        <label>Icon color</label>
-        <div class="swatches" id="swatches"></div>
-      </div>
-      <div class="field">
-        <label>Custom logo / picture (optional — overrides the icon above)</label>
-        <input type="file" id="f-image" accept="image/*" onchange="handleImageUpload(event)">
-        <div id="image-preview" style="display:none;margin-top:10px;align-items:center;gap:10px;">
-          <img id="image-preview-img" style="width:44px;height:44px;border-radius:10px;object-fit:cover;">
-          <button type="button" class="back-link" style="width:auto;padding:0;" onclick="removeUploadedImage()">Remove image</button>
-        </div>
-      </div>
-      <div class="field">
-        <label>Badge (optional)</label>
-        <select id="f-flag">
-          <option value="">None</option>
-          <option value="popular">Popular</option>
-          <option value="trending">Trending</option>
-          <option value="new">New today</option>
+        <label for="type">Job type</label>
+        <select id="type">
+          <option>Select type</option>
+          <option>Full time</option>
+          <option>Part time</option>
+          <option>Freelance</option>
+          <option>Contract</option>
         </select>
       </div>
-      <div class="checkline">
-        <input type="checkbox" id="f-independent" checked style="width:auto;">
-        <label for="f-independent" style="margin:0;font-weight:400;">Independent listing</label>
+      <div class="field">
+        <label for="loc">Location</label>
+        <select id="loc">
+          <option>Select city</option>
+          <option>Remote</option>
+          <option>United States</option>
+          <option>Worldwide</option>
+        </select>
       </div>
-      <div class="row2">
-        <div class="field">
-          <label>Schedule (shown in details)</label>
-          <input id="f-schedule" placeholder="e.g. Shift-based">
+      <div class="field" style="display:flex;align-items:flex-end;">
+        <button class="btn btn-accent btn-block" onclick="document.getElementById('board').scrollIntoView({behavior:'smooth'})">Find Jobs</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div><div class="stat-icon">🏢</div><div class="stat-num">12K+</div><div class="stat-label">Companies hiring</div></div>
+      <div><div class="stat-icon">🌍</div><div class="stat-num">96+</div><div class="stat-label">Countries reached</div></div>
+      <div><div class="stat-icon">✅</div><div class="stat-num">41,000+</div><div class="stat-label">People placed</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="categories">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow-small">Choose your category</div>
+      <h2>Jobs by category</h2>
+    </div>
+    <div class="cat-grid">
+      <a class="cat-card" href="jobs.html?category=Customer%20Service"><div class="cat-icon">💬</div><h3>Customer Service</h3><div class="cat-count" id="cat-count-customer-service">– jobs</div></a>
+      <a class="cat-card" href="jobs.html?category=Content%20%26%20Writing"><div class="cat-icon">✍️</div><h3>Content & Writing</h3><div class="cat-count" id="cat-count-content-writing">– jobs</div></a>
+      <a class="cat-card" href="jobs.html?category=Marketing"><div class="cat-icon">📣</div><h3>Marketing</h3><div class="cat-count" id="cat-count-marketing">– jobs</div></a>
+      <a class="cat-card" href="jobs.html?category=Data%20%26%20Surveys"><div class="cat-icon">📊</div><h3>Data & Surveys</h3><div class="cat-count" id="cat-count-data-surveys">– jobs</div></a>
+      <a class="cat-card" href="jobs.html?category=Admin%20%26%20Support"><div class="cat-icon">🗂️</div><h3>Admin & Support</h3><div class="cat-count" id="cat-count-admin-support">– jobs</div></a>
+      <a class="cat-card" href="jobs.html?category=Design"><div class="cat-icon">🎨</div><h3>Design</h3><div class="cat-count" id="cat-count-design">– jobs</div></a>
+      <a class="cat-card" href="jobs.html?category=Sales"><div class="cat-icon">💼</div><h3>Sales</h3><div class="cat-count" id="cat-count-sales">– jobs</div></a>
+      <a class="cat-card" href="jobs.html?category=Fully%20Remote"><div class="cat-icon">🏠</div><h3>Fully Remote</h3><div class="cat-count" id="cat-count-fully-remote">– jobs</div></a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="banner">
+      <div>
+        <h2>We help you connect with the best jobs</h2>
+        <p>Get paid easily and securely. Build your profile once, and let employers looking for your skills find you.</p>
+      </div>
+      <a class="btn btn-accent" href="#board">Browse open jobs</a>
+    </div>
+  </div>
+</section>
+
+<section id="board">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow-small">Find your career</div>
+      <h2>Latest job openings</h2>
+    </div>
+    <div class="job-grid" id="job-grid">
+      <p style="color:var(--text);grid-column:1/-1;text-align:center;">Loading jobs…</p>
+    </div>
+    <div style="text-align:center;margin-top:34px;">
+      <a class="btn btn-outline" href="#">Browse all jobs</a>
+    </div>
+  </div>
+</section>
+
+<section id="stories">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow-small">Testimonials</div>
+      <h2>What our members say</h2>
+    </div>
+    <div class="t-grid">
+      <div class="t-card">
+        <div class="quote-mark">"</div>
+        <p>I filtered by flexible hours and had two interviews booked within a week. Didn't expect it to move that fast.</p>
+        <div class="t-person"><div class="t-avatar">M</div><div><div class="t-name">Marisol T.</div><div class="t-role">Customer Support</div></div></div>
+      </div>
+      <div class="t-card">
+        <div class="quote-mark">"</div>
+        <p>The category pages meant I wasn't wading through listings that had nothing to do with writing work.</p>
+        <div class="t-person"><div class="t-avatar">D</div><div><div class="t-name">Devon R.</div><div class="t-role">Freelance Copywriter</div></div></div>
+      </div>
+      <div class="t-card">
+        <div class="quote-mark">"</div>
+        <p>Applied direct, heard back direct. No recruiter chasing me for a call I didn't ask for.</p>
+        <div class="t-person"><div class="t-avatar">P</div><div><div class="t-name">Priya K.</div><div class="t-role">Virtual Assistant</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="blog">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow-small">Latest article</div>
+      <h2>Our blog</h2>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card">
+        <div class="blog-img"></div>
+        <div class="blog-body"><div class="blog-date">Aug 21, 2026</div><h3>Five remote job categories hiring right now</h3></div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-img"></div>
+        <div class="blog-body"><div class="blog-date">Aug 14, 2026</div><h3>How to spot a legit work-from-home listing</h3></div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-img"></div>
+        <div class="blog-body"><div class="blog-date">Aug 6, 2026</div><h3>Building a profile that gets you noticed</h3></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div class="foot-logo" style="display:flex;align-items:center;gap:8px;">
+          <svg width="20" height="20" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+            <path d="M2 25C7 15 15 9 23 11C25 6 32 3 38 6C32 9 28 15 24 17C21 24 14 27 7 26C5 26 3 25.5 2 25Z" fill="#ff6b35"/>
+            <circle cx="31" cy="9" r="1.7" fill="#fff"/>
+          </svg>
+          HireBird
         </div>
-        <div class="field">
-          <label>Location detail</label>
-          <input id="f-location" placeholder="e.g. USA · Part-time">
-        </div>
+        <p style="max-width:32ch;font-size:14px;">The board for remote and flexible work.</p>
       </div>
-      <div class="field">
-        <label>Pay (optional, shown in details)</label>
-        <input id="f-pay" placeholder="e.g. $18–24 / hour">
-      </div>
-      <div class="field">
-        <label>About this job (optional, longer description)</label>
-        <textarea id="f-fulldesc" placeholder="What the task involves, requirements, how it's paid, etc."></textarea>
-      </div>
-      <div class="field">
-        <label>Apply link</label>
-        <input id="f-url" placeholder="https://...">
-      </div>
-      <div class="field">
-        <label>How to apply steps</label>
-        <div id="steps-fields"></div>
-        <button type="button" class="view-btn-secondary" style="margin-top:8px;" onclick="addStepField()">+ Add step</button>
-      </div>
-      <button type="submit" class="submit-btn" id="submitBtnLabel">Add listing</button>
-    </form>
+      <div class="foot-col"><h4>Explore</h4><a href="#board">All jobs</a><a href="#categories">Categories</a><a href="#">For employers</a></div>
+      <div class="foot-col"><h4>Company</h4><a href="#">About</a><a href="#blog">Blog</a><a href="#">Contact</a></div>
+      <div class="foot-col"><h4>Legal</h4><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Cookie policy</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 HireBird Technologies. All rights reserved.</span>
+      <span>Made for people between jobs.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div id="modal-body"></div>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const ICONS = {
-    headphones: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 14v-2a8 8 0 0 1 16 0v2" stroke="#fff" stroke-width="2" stroke-linecap="round"/><rect x="2.5" y="14" width="5" height="7" rx="2" fill="#fff"/><rect x="16.5" y="14" width="5" height="7" rx="2" fill="#fff"/></svg>`,
-    music: `<svg viewBox="0 0 24 24" fill="none"><path d="M9 18V6l11-2v12" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.5" fill="#fff"/><circle cx="17.5" cy="16" r="2.5" fill="#fff"/></svg>`,
-    clapper: `<svg viewBox="0 0 24 24" fill="none"><path d="M3 9.5 20.5 6 21 8.5 3.5 12z" fill="#fff"/><rect x="3" y="10" width="18" height="10" rx="1.5" fill="#fff" fill-opacity="0.85"/></svg>`,
-    flask: `<svg viewBox="0 0 24 24" fill="none"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>`,
-    chat: `<svg viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.4L3 20l1.2-5.3A8.5 8.5 0 1 1 21 11.5Z" fill="#fff"/></svg>`,
-    briefcase: `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="12" rx="2" stroke="#fff" stroke-width="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="#fff" stroke-width="2"/></svg>`
-  };
-  const PIN = `<svg viewBox="0 0 24 24" fill="none"><path d="M12 22s7-7.2 7-12a7 7 0 1 0-14 0c0 4.8 7 12 7 12Z" stroke-width="2"/><circle cx="12" cy="10" r="2.4" stroke-width="2"/></svg>`;
-  const GLOBE = `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18" stroke-width="1.6"/></svg>`;
-  const CHECK = `<svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-  const CLOCK_ICON = `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M12 7v5l3.5 2" stroke-width="2" stroke-linecap="round"/></svg>`;
-  const PAY_ICON = `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M12 7v10M9.5 9.5c0-1.4 1.2-2.2 2.5-2.2s2.5.7 2.5 2c0 2.5-5 1.5-5 4 0 1.3 1.2 2.2 2.5 2.2s2.5-.8 2.5-2.2" stroke-width="1.8" stroke-linecap="round"/></svg>`;
-  const FLAG_ICONS = {
-    popular: `<svg viewBox="0 0 24 24" fill="none"><path d="M3 8l4 3 5-6 5 6 4-3-2 10H5L3 8Z" fill="currentColor"/></svg>`,
-    trending: `<svg viewBox="0 0 24 24" fill="none"><path d="M3 17l6-6 4 4 8-8M21 7v5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-    new: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l1.8 5.5L19 9l-5.2 1.5L12 16l-1.8-5.5L5 9l5.2-1.5Z" fill="currentColor"/></svg>`
-  };
-  const FLAG_LABEL = { popular:"Popular", trending:"Trending", new:"New today" };
-  const SWATCHES = ["#3EA96E","#1B1D22","#E0342B","#5A62E8","#2F5FE0","#B4640A"];
+if (!window.__hirebirdInitialized) {
+  window.__hirebirdInitialized = true;
 
-  // ---------- Admin gate ----------
-  // Change this before you deploy. Share it only with yourself.
-  const ADMIN_KEY = "adminred";
-
-  function checkAdmin(){
-    const params = new URLSearchParams(window.location.search);
-    const keyParam = params.get('admin');
-    if(keyParam && keyParam === ADMIN_KEY){
-      sessionStorage.setItem('qfj_admin', '1');
-      params.delete('admin');
-      const qs = params.toString();
-      const cleanUrl = window.location.pathname + (qs ? '?' + qs : '') + window.location.hash;
-      window.history.replaceState({}, '', cleanUrl);
+  // ---- Fill these in with your Supabase project's values (Settings > API) ----
+  const SUPABASE_URL = 'https://svlmqosnkyromwqbrkhu.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_6XLTNfKa4_JjVGRLGBPP6Q_EDP1_buX';
+  const SUPABASE_CONFIGURED = SUPABASE_URL.startsWith('http');
+  let sb = null;
+  if (SUPABASE_CONFIGURED) {
+    try {
+      sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    } catch (e) {
+      console.error('Supabase failed to initialize:', e);
     }
-    return sessionStorage.getItem('qfj_admin') === '1';
-  }
-  function adminLogout(){
-    sessionStorage.removeItem('qfj_admin');
-    isAdmin = false;
-    document.getElementById('adminControls').style.display = 'none';
-    render();
-  }
-  let isAdmin = checkAdmin();
-
-  const DEFAULT_STEPS = [
-    'Click "Apply now" below',
-    "Enter your name and contact info",
-    "Submit your application",
-    "Not accepted? Reapply anytime"
-  ];
-  const DEFAULT_JOBS = [
-    { id:1, postedAt: new Date(Date.now() - 2*3600*1000).toISOString(), title:"Music Ratings - Spotify", desc:"Explore music ratings opportunities", region:"USA", type:"Remote", independent:true, icon:"headphones", color:"#3EA96E", flag:"popular", schedule:"Flexible", location:"USA · Remote", pay:"$14–22 / task", fulldesc:"Listen to newly released tracks and playlists, then submit short written ratings on sound quality, mood fit, and replay value. No experience needed — you'll get a quick style guide before your first batch.\n\nMost reviewers complete 5–10 tracks per session. Payouts are issued weekly once you hit the $20 threshold.", url:"#" },
-    { id:2, postedAt: new Date(Date.now() - 26*3600*1000).toISOString(), title:"Movie Reviews", desc:"Explore movie review opportunities", region:"Global", type:"Remote", independent:false, icon:"clapper", color:"#1B1D22", flag:"trending", schedule:"Flexible", location:"Global · Remote", pay:"$10–18 / review", fulldesc:"Watch trailers or short clips from upcoming releases and write a brief, honest review covering pacing, acting, and whether you'd recommend it.\n\nReviews are typically 100–200 words. New titles are added daily, so you can work whenever you have free time.", url:"#" },
-    { id:3, postedAt: new Date(Date.now() - 4*3600*1000).toISOString(), title:"App Beta Testing - Tiktok", desc:"Test new features and share feedback.", region:"Global", type:"Flexible", independent:true, icon:"music", color:"#111214", flag:"new", schedule:"Flexible", location:"Global · Flexible", pay:"$20–30 / test session", fulldesc:"Try out unreleased app features on your own phone and report bugs, confusing flows, or crashes through a short feedback form.\n\nEach test session takes roughly 20–30 minutes. You'll need a smartphone and a stable internet connection.", url:"#" },
-    { id:4, postedAt: new Date(Date.now() - 4*24*3600*1000).toISOString(), title:"Community Moderation - Discord", desc:"Admin and moderation.", region:"USA", type:"Part-time", independent:true, icon:"chat", color:"#5A62E8", flag:"", schedule:"Shift-based", location:"USA · Part-time", pay:"$15/hour", fulldesc:"Monitor chat activity during your assigned shift, enforce community guidelines, and escalate serious issues to the lead moderator.\n\nShifts are 3–4 hours and scheduled a week in advance. Prior moderation experience is a plus but not required.", url:"#" },
-    { id:5, postedAt: new Date(Date.now() - 6*24*3600*1000).toISOString(), title:"Music Ratings - Apple", desc:"Explore music ratings opportunities", region:"USA", type:"Remote", independent:true, icon:"music", color:"#E0342B", flag:"", schedule:"Flexible", location:"USA · Remote", pay:"$14–22 / task", fulldesc:"Same format as our Spotify ratings gig — listen to a short batch of tracks and rate them for quality and mood fit.\n\nGreat as a second listing if you want more volume from the same type of task.", url:"#" },
-  ];
-
-  // ---------- Supabase (shared cloud storage) ----------
-  const SUPABASE_URL = "https://xumcklbnwyswjomxlgfh.supabase.co";
-  const SUPABASE_ANON_KEY = "sb_publishable_I2SZTrEr7_ycFffYY3pEPw_YeFVEWPI";
-  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  async function loadJobsFromCloud(){
-    const { data, error } = await sb.from('interflexjob_data').select('jobs').eq('id', 1).single();
-    if(error){ console.error('Load error:', error); return; }
-    if(data && data.jobs && data.jobs.length){
-      jobs = data.jobs;
-    } else if(isAdmin){
-      // First time setup: seed the cloud table with the default listings.
-      jobs = DEFAULT_JOBS.slice();
-      saveJobs();
-    }
-    render();
   }
 
-  async function saveJobs(){
-    const { error } = await sb.from('interflexjob_data').update({ jobs, admin_key: ADMIN_KEY }).eq('id', 1);
-    if(error){ console.error('Save error:', error); alert('Could not save changes: ' + error.message); }
+  let currentSession = null;
+  let pendingApply = null;
+
+  const modalContent = {
+    signin: {title:'Sign in', sub:'Admin access only.',
+      body:`<div class="field"><label>Email address</label><input type="email" id="signin-email" placeholder="you@email.com"></div>
+            <div class="field"><label>Password</label><input type="password" id="signin-password" placeholder="••••••••"></div>
+            <p id="modal-message" style="font-size:13px;color:#c0392b;margin:0 0 12px;"></p>
+            <button class="btn btn-accent btn-block" onclick="handleSignIn()">Sign in</button>`},
+    post: {title:'Post a job', sub:'This goes live on the board immediately.',
+      body:`<div class="field"><label>Company name</label><input type="text" id="post-company" placeholder="Acme Inc."></div>
+            <div class="field"><label>Job title</label><input type="text" id="post-title" placeholder="Remote Chat Support Agent"></div>
+            <div class="field"><label>Location</label><input type="text" id="post-location" placeholder="Remote" value="Remote"></div>
+            <div class="field"><label>Pay</label><input type="text" id="post-pay" placeholder="$19–$26/hr"></div>
+            <div class="field"><label>Job type</label><input type="text" id="post-type" placeholder="Full time"></div>
+            <div class="field"><label>Tags (comma separated)</label><input type="text" id="post-tags" placeholder="Full time, Entry level"></div>
+            <div class="field"><label>Industry</label><input type="text" id="post-industry" placeholder="Remote"></div>
+            <div class="field"><label>Experience</label><input type="text" id="post-experience" placeholder="No experience"></div>
+            <div class="field"><label>Qualification</label><input type="text" id="post-qualification" placeholder="Entry Level"></div>
+            <div class="field"><label>Functional area</label><input type="text" id="post-functional-area" placeholder="Advertisement"></div>
+            <div class="field"><label>Degree level</label><input type="text" id="post-degree-level" placeholder="Short Course"></div>
+            <div class="field"><label>Company logo (optional)</label><input type="file" id="post-logo-file" accept="image/*"></div>
+            <div class="field"><label>External application link</label><input type="url" id="post-apply-url" placeholder="https://yoursite.com/apply/job-name"></div>
+            <div class="field"><label>Posted date (optional — leave blank for today)</label><input type="date" id="post-posted-date"></div>
+            <div class="field"><label>Full description</label><textarea id="post-description" rows="8" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:11px 12px;font-size:14px;font-family:inherit;" placeholder="Use blank lines between sections. Start a line with '## ' for a heading, and '- ' for a bullet point."></textarea></div>
+            <p id="modal-message" style="font-size:13px;color:#c0392b;margin:0 0 12px;"></p>
+            <button class="btn btn-accent btn-block" onclick="handlePostJob()">Publish listing</button>`}
+  };
+
+  function openModal(kind){
+    const c = modalContent[kind];
+    document.getElementById('modal-body').innerHTML = `<h3>${c.title}</h3><p>${c.sub}</p>${c.body}`;
+    document.getElementById('modal-backdrop').classList.add('open');
+  }
+  function closeModal(){ document.getElementById('modal-backdrop').classList.remove('open'); }
+  document.getElementById('modal-backdrop').addEventListener('click', e=>{ if(e.target.id==='modal-backdrop') closeModal(); });
+
+  function setModalMessage(msg){
+    const el = document.getElementById('modal-message');
+    if(el) el.textContent = msg;
   }
 
-  function subscribeToJobUpdates(){
-    sb.channel('interflexjob_data_changes')
-      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'interflexjob_data', filter: 'id=eq.1' }, payload => {
-        if(payload.new && payload.new.jobs){
-          jobs = payload.new.jobs;
-          render();
-        }
-      })
-      .subscribe();
+  // ---- Auth ----
+  async function checkAuth(){
+    if(!sb) return;
+    const { data } = await sb.auth.getSession();
+    currentSession = data.session;
+    updateNav();
+    loadJobs();
   }
 
-  // ---------- Click analytics ----------
-  function getDeviceType(){
+  function updateNav(){
+    const btn = document.getElementById('nav-signin-btn');
+    btn.textContent = currentSession ? 'Sign out' : 'Sign in';
+    const analyticsLink = document.getElementById('nav-analytics-link');
+    if(analyticsLink) analyticsLink.style.display = currentSession ? 'inline-flex' : 'none';
+  }
+
+  function detectDevice(){
     const ua = navigator.userAgent;
-    if(/tablet|ipad/i.test(ua)) return 'Tablet';
-    if(/mobile|android|iphone/i.test(ua)) return 'Mobile';
+    if(/iPad|Tablet/i.test(ua)) return 'Tablet';
+    if(/Mobi|Android|iPhone/i.test(ua)) return 'Mobile';
     return 'Desktop';
   }
 
-  function getBrowserType(){
+  function detectBrowser(){
     const ua = navigator.userAgent;
-    if(/edg/i.test(ua)) return 'Edge';
-    if(/firefox/i.test(ua)) return 'Firefox';
-    if(/chrome|crios/i.test(ua)) return 'Chrome';
-    if(/safari/i.test(ua)) return 'Safari';
+    if(/Edg\//i.test(ua)) return 'Edge';
+    if(/Chrome\//i.test(ua) && !/Chromium|Edg/i.test(ua)) return 'Chrome';
+    if(/Firefox\//i.test(ua)) return 'Firefox';
+    if(/Safari\//i.test(ua) && !/Chrome|Chromium/i.test(ua)) return 'Safari';
     return 'Other';
   }
 
-  function formatTimeAgo(isoString){
-    if(!isoString) return '';
-    const diffMs = Date.now() - new Date(isoString).getTime();
-    const mins = Math.floor(diffMs / 60000);
-    if(mins < 1) return 'Posted just now';
-    if(mins < 60) return `Posted ${mins} minute${mins===1?'':'s'} ago`;
-    const hours = Math.floor(mins / 60);
-    if(hours < 24) return `Posted ${hours} hour${hours===1?'':'s'} ago`;
-    const days = Math.floor(hours / 24);
-    if(days < 30) return `Posted ${days} day${days===1?'':'s'} ago`;
-    const months = Math.floor(days / 30);
-    return `Posted ${months} month${months===1?'':'s'} ago`;
+  async function logClick(jobId){
+    if(!sb || !jobId) return;
+    try {
+      const device_type = detectDevice();
+      const browser = detectBrowser();
+      let country = null;
+      try {
+        const geoRes = await fetch('https://ipwho.is/');
+        const geoData = await geoRes.json();
+        if(geoData && geoData.success !== false) country = geoData.country || null;
+      } catch(geoErr) { /* geo lookup failed, log click without country */ }
+
+      await sb.from('job_clicks').insert({ job_id: jobId, device_type, browser, country });
+    } catch(e) { console.error('Click logging failed:', e); }
   }
 
-  function getReferrer(){
-    if(!document.referrer) return 'Direct / none';
-    try{
-      const host = new URL(document.referrer).hostname;
-      return host || 'Direct / none';
-    }catch(e){
-      return 'Direct / none';
-    }
+  async function logPageView(page){
+    if(!sb) return;
+    try {
+      const device_type = detectDevice();
+      const browser = detectBrowser();
+      const referrer = document.referrer || null;
+      let country = null;
+      try {
+        const geoRes = await fetch('https://ipwho.is/');
+        const geoData = await geoRes.json();
+        if(geoData && geoData.success !== false) country = geoData.country || null;
+      } catch(geoErr) { /* geo lookup failed, log view without country */ }
+
+      await sb.from('page_views').insert({ page, device_type, browser, country, referrer });
+    } catch(e) { console.error('Page view logging failed:', e); }
   }
 
-  let geoInfoPromise = null;
-  function getGeoInfo(){
-    if(!geoInfoPromise){
-      geoInfoPromise = fetch('https://ipapi.co/json/')
-        .then(r => r.json())
-        .then(d => ({
-          country: d.country_name || 'Unknown',
-          region: d.region || 'Unknown',
-          city: d.city || 'Unknown'
-        }))
-        .catch(() => ({ country: 'Unknown', region: 'Unknown', city: 'Unknown' }));
-    }
-    return geoInfoPromise;
-  }
-
-  async function logEvent(eventType, jobId){
-    const job = jobId ? jobs.find(j => j.id === jobId) : null;
-    const geo = await getGeoInfo();
-    try{
-      await sb.from('interflexjob_clicks').insert({
-        event_type: eventType,
-        job_id: jobId || null,
-        job_title: job ? job.title : null,
-        device: getDeviceType(),
-        browser: getBrowserType(),
-        referrer: getReferrer(),
-        country: geo.country,
-        region: geo.region,
-        city: geo.city
-      });
-    }catch(err){
-      console.error('Log event error:', err);
-    }
-  }
-  function logPageView(){ logEvent('page_view', null); }
-  function logViewDetails(jobId){ logEvent('view_details', jobId); }
-  function logApplyClick(jobId){ logEvent('apply_click', jobId).then(() => loadTodayApplyCounts()); }
-
-  let jobs = DEFAULT_JOBS.slice();
-  let todayApplyCounts = {};
-
-  async function loadTodayApplyCounts(){
-    const todayStart = new Date();
-    todayStart.setHours(0, 0, 0, 0);
-    const { data, error } = await sb
-      .from('interflexjob_clicks')
-      .select('job_id')
-      .eq('event_type', 'apply_click')
-      .gte('created_at', todayStart.toISOString());
-    if(error){ console.error('Today counts error:', error); return; }
-    const counts = {};
-    (data || []).forEach(r => {
-      if(r.job_id) counts[r.job_id] = (counts[r.job_id] || 0) + 1;
-    });
-    todayApplyCounts = counts;
-    render();
-  }
-  let selectedColor = SWATCHES[4];
-  let selectedImage = null;
-  let formSteps = [];
-
-  const grid = document.getElementById('grid');
-  const searchInput = document.getElementById('search');
-  const sortSelect = document.getElementById('sort');
-
-  function pill(icon, text){ return `<span class="pill">${icon}${text}</span>`; }
-
-  function badgeHTML(job){
-    if(job.customImage){
-      return `<div class="icon-badge" style="background:${job.color};padding:0;overflow:hidden;">
-        <img src="${job.customImage}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
-      </div>`;
-    }
-    return `<div class="icon-badge" style="background:${job.color}">${ICONS[job.icon] || ICONS.briefcase}</div>`;
-  }
-
-  function cardHTML(job){
-    const flagHTML = job.flag ? `<span class="flag ${job.flag}">${FLAG_ICONS[job.flag]}${FLAG_LABEL[job.flag]}</span>` : `<span></span>`;
-    const trueIdx = jobs.findIndex(j => j.id === job.id);
-    const isFirst = trueIdx <= 0;
-    const isLast = trueIdx === jobs.length - 1;
-    return `
-      <div class="card">
-        ${isAdmin ? `<div class="card-del" onclick="deleteJob(${job.id})" title="Remove listing">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2m-8 0 1 13a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2l1-13" stroke-width="2" stroke-linecap="round"/></svg>
-        </div>
-        <div class="card-edit" onclick="openEditModal(${job.id})" title="Edit listing">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="card-move up ${isFirst ? 'disabled' : ''}" onclick="moveJob(${job.id}, -1)" title="Move up">
-          <svg viewBox="0 0 24 24" fill="none"><polyline points="6 15 12 9 18 15" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="card-move down ${isLast ? 'disabled' : ''}" onclick="moveJob(${job.id}, 1)" title="Move down">
-          <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>` : ''}
-        <div class="card-top">
-          ${badgeHTML(job)}
-          ${flagHTML}
-        </div>
-        <h3>${job.title}</h3>
-        <p class="desc">${job.desc}</p>
-        <div class="pills">
-          ${pill(PIN, job.region)}
-          ${pill(GLOBE, job.type)}
-          ${job.independent ? pill(CHECK, "Independent listing") : ""}
-        </div>
-        ${(job.postedAt || todayApplyCounts[job.id]) ? `<div style="font-size:0.78rem;color:var(--ink-soft);margin:-6px 0 12px;">
-          ${job.postedAt ? formatTimeAgo(job.postedAt) : ''}${(job.postedAt && todayApplyCounts[job.id]) ? ' · ' : ''}${todayApplyCounts[job.id] ? `🔥 ${todayApplyCounts[job.id]} applied today` : ''}
-        </div>` : ''}
-        <button class="view-btn" onclick="logViewDetails(${job.id}); openView(${job.id})">
-          View details
-          <svg viewBox="0 0 24 24" fill="none"><line x1="5" y1="12" x2="19" y2="12" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><polyline points="12 5 19 12 12 19" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-        </button>
-      </div>`;
-  }
-
-  function render(){
-    let items = jobs.filter(j =>
-      j.title.toLowerCase().includes(searchInput.value.toLowerCase()) ||
-      j.desc.toLowerCase().includes(searchInput.value.toLowerCase())
-    );
-    if(sortSelect.value === 'title'){
-      items = items.slice().sort((a,b)=>a.title.localeCompare(b.title));
-    }
-    grid.innerHTML = items.map(cardHTML).join('') || `<div class="empty-state">No listings match your search.</div>`;
-  }
-
-  let currentViewJobId = null;
-  let currentStep = 1;
-
-  function openView(id){
-    currentViewJobId = id;
-    currentStep = 1;
-    renderViewSheet();
-    document.getElementById('viewOverlay').classList.add('open');
-  }
-  function goToStep(n){ currentStep = n; renderViewSheet(); }
-  function closeView(){ document.getElementById('viewOverlay').classList.remove('open'); }
-
-  function renderViewSheet(){
-    const job = jobs.find(j => j.id === currentViewJobId);
-    if(!job) return;
-
-    const headerHTML = `
-      <div class="sheet-top">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          ${badgeHTML(job)}
-          <div>
-            <h2>${job.title}</h2>
-            <div class="pills" style="margin-top:8px;margin-bottom:0;">
-              ${pill(PIN, job.region)}${pill(GLOBE, job.type)}
-            </div>
-          </div>
-        </div>
-        <button class="close-btn" onclick="closeView()">
-          <svg viewBox="0 0 24 24" fill="none"><line x1="6" y1="6" x2="18" y2="18" stroke="#333" stroke-width="2" stroke-linecap="round"/><line x1="18" y1="6" x2="6" y2="18" stroke="#333" stroke-width="2" stroke-linecap="round"/></svg>
-        </button>
-      </div>
-      <div class="progress-dots"><span class="${currentStep===1?'active':''}"></span><span class="${currentStep===2?'active':''}"></span><span class="${currentStep===3?'active':''}"></span></div>
+  function openApplyGate(jobId, applyUrl){
+    pendingApply = { jobId, applyUrl };
+    document.getElementById('modal-body').innerHTML = `
+      <h3>Enter your email to continue</h3>
+      <p>We'll use this to send you updates on this and similar opportunities.</p>
+      <div class="field"><label>Email address</label><input type="email" id="apply-email" placeholder="you@email.com"></div>
+      <p id="modal-message" style="font-size:13px;color:#c0392b;margin:0 0 12px;"></p>
+      <button class="btn btn-accent btn-block" onclick="submitApplyGate()">Continue to application</button>
     `;
+    document.getElementById('modal-backdrop').classList.add('open');
+  }
 
-    let bodyHTML = '';
-    if(currentStep === 1){
-      bodyHTML = `
-        <div style="font-size:0.82rem;font-weight:700;margin-bottom:8px;">About this job</div>
-        <p class="desc" style="margin:0 0 16px;white-space:pre-line;">${job.fulldesc || job.desc}</p>
-        <button class="view-btn-secondary" style="margin-top:6px;" onclick="goToStep(2)">
-          Continue
-          <svg viewBox="0 0 24 24" fill="none"><line x1="5" y1="12" x2="19" y2="12" stroke="#333" stroke-width="2.2" stroke-linecap="round"/><polyline points="12 5 19 12 12 19" stroke="#333" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-        </button>
-      `;
-    } else if(currentStep === 2){
-      bodyHTML = `
-        <div style="font-size:0.82rem;font-weight:700;margin-bottom:8px;">Job details</div>
-        <div class="info-box">
-          <div class="ic">${CLOCK_ICON.replace(/currentColor/g,'')}</div>
-          <div><div class="label">Schedule</div><div class="value">${job.schedule || job.type}</div></div>
-        </div>
-        <div class="info-box">
-          <div class="ic">${PIN}</div>
-          <div><div class="label">Location</div><div class="value">${job.location || job.region}</div></div>
-        </div>
-        ${job.pay ? `<div class="info-box">
-          <div class="ic">${PAY_ICON}</div>
-          <div><div class="label">Pay</div><div class="value">${job.pay}</div></div>
-        </div>` : ''}
-        <button class="view-btn-secondary" style="margin-top:6px;" onclick="goToStep(3)">
-          Continue
-          <svg viewBox="0 0 24 24" fill="none"><line x1="5" y1="12" x2="19" y2="12" stroke="#333" stroke-width="2.2" stroke-linecap="round"/><polyline points="12 5 19 12 12 19" stroke="#333" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-        </button>
-        <button class="back-link" onclick="goToStep(1)">← Back to job description</button>
-      `;
-    } else {
-      bodyHTML = `
-        <div style="font-size:0.82rem;font-weight:700;margin-bottom:8px;">How to apply</div>
-        ${(job.steps && job.steps.length ? job.steps : DEFAULT_STEPS).map((text, i) => `
-        <div class="info-box">
-          <div class="ic" style="font-weight:800;color:var(--blue);font-size:0.9rem;">${i+1}</div>
-          <div><div class="label">Step ${i+1}</div><div class="value">${text}</div></div>
-        </div>`).join('')}
-        <a href="${job.url || '#'}" target="_blank" rel="noopener" class="view-btn" style="margin-top:6px;" onclick="logApplyClick(${job.id})">
-          Apply now
-          <svg viewBox="0 0 24 24" fill="none"><line x1="5" y1="12" x2="19" y2="12" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><polyline points="12 5 19 12 12 19" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-        </a>
-        <button class="back-link" onclick="goToStep(2)">← Back to job details</button>
-      `;
+  async function submitApplyGate(){
+    const email = document.getElementById('apply-email').value.trim();
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      setModalMessage('Enter a valid email address.');
+      return;
     }
-
-    document.getElementById('viewSheet').innerHTML = headerHTML + bodyHTML;
-  }
-
-  function deleteJob(id){
-    if(!isAdmin) return;
-    jobs = jobs.filter(j => j.id !== id);
-    saveJobs();
-    render();
-  }
-
-  function moveJob(id, direction){
-    if(!isAdmin) return;
-    const idx = jobs.findIndex(j => j.id === id);
-    if(idx === -1) return;
-    const newIdx = idx + direction;
-    if(newIdx < 0 || newIdx >= jobs.length) return;
-    [jobs[idx], jobs[newIdx]] = [jobs[newIdx], jobs[idx]];
-    saveJobs();
-    render();
-  }
-
-  function buildSwatches(){
-    const box = document.getElementById('swatches');
-    box.innerHTML = SWATCHES.map(c =>
-      `<div class="swatch ${c===selectedColor?'sel':''}" style="background:${c}" onclick="pickColor('${c}')"></div>`
-    ).join('');
-  }
-  function pickColor(c){ selectedColor = c; buildSwatches(); }
-
-  function renderStepFields(){
-    const box = document.getElementById('steps-fields');
-    box.innerHTML = formSteps.map((text, i) => `
-      <div class="step-field-row">
-        <input value="${text.replace(/"/g,'&quot;')}" placeholder="Step ${i+1}" oninput="updateStepField(${i}, this.value)">
-        <div class="step-field-remove" onclick="removeStepField(${i})" title="Remove step">
-          <svg viewBox="0 0 24 24" fill="none"><line x1="6" y1="6" x2="18" y2="18" stroke-width="2" stroke-linecap="round"/><line x1="18" y1="6" x2="6" y2="18" stroke-width="2" stroke-linecap="round"/></svg>
-        </div>
-      </div>`).join('');
-  }
-  function updateStepField(i, value){ formSteps[i] = value; }
-  function addStepField(){ formSteps.push(''); renderStepFields(); }
-  function removeStepField(i){ formSteps.splice(i, 1); renderStepFields(); }
-
-  function handleImageUpload(e){
-    const file = e.target.files[0];
-    if(!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      selectedImage = reader.result;
-      showImagePreview();
-    };
-    reader.readAsDataURL(file);
-  }
-  function showImagePreview(){
-    const box = document.getElementById('image-preview');
-    document.getElementById('image-preview-img').src = selectedImage;
-    box.classList.add('show');
-  }
-  function removeUploadedImage(){
-    selectedImage = null;
-    document.getElementById('f-image').value = '';
-    document.getElementById('image-preview').classList.remove('show');
-  }
-
-  let editingId = null;
-
-  function openAddModal(){
-    if(!isAdmin) return;
-    editingId = null;
-    document.getElementById('modalTitle').textContent = 'Add a job listing';
-    document.getElementById('submitBtnLabel').textContent = 'Add listing';
-    document.getElementById('jobForm').reset();
-    formSteps = DEFAULT_STEPS.slice();
-    renderStepFields();
-    selectedColor = SWATCHES[4];
-    buildSwatches();
-    selectedImage = null;
-    document.getElementById('image-preview').classList.remove('show');
-    document.getElementById('addOverlay').classList.add('open');
-  }
-  function closeAddModal(){ document.getElementById('addOverlay').classList.remove('open'); }
-
-  function openEditModal(id){
-    if(!isAdmin) return;
-    const job = jobs.find(j => j.id === id);
-    if(!job) return;
-    editingId = id;
-    document.getElementById('modalTitle').textContent = 'Edit job listing';
-    document.getElementById('submitBtnLabel').textContent = 'Save changes';
-    document.getElementById('f-title').value = job.title;
-    document.getElementById('f-desc').value = job.desc;
-    document.getElementById('f-region').value = job.region;
-    document.getElementById('f-type').value = job.type;
-    document.getElementById('f-icon').value = job.icon;
-    document.getElementById('f-flag').value = job.flag || '';
-    document.getElementById('f-independent').checked = !!job.independent;
-    document.getElementById('f-schedule').value = job.schedule || '';
-    document.getElementById('f-location').value = job.location || '';
-    document.getElementById('f-pay').value = job.pay || '';
-    document.getElementById('f-fulldesc').value = job.fulldesc || '';
-    document.getElementById('f-url').value = job.url === '#' ? '' : (job.url || '');
-    const steps = (job.steps && job.steps.length ? job.steps : DEFAULT_STEPS);
-    formSteps = steps.slice();
-    renderStepFields();
-    selectedColor = job.color;
-    buildSwatches();
-    selectedImage = job.customImage || null;
-    if(selectedImage){ showImagePreview(); } else { document.getElementById('image-preview').classList.remove('show'); }
-    document.getElementById('addOverlay').classList.add('open');
-  }
-
-  function submitJob(e){
-    e.preventDefault();
-    if(!isAdmin) return;
-    const fields = {
-      title: document.getElementById('f-title').value.trim(),
-      desc: document.getElementById('f-desc').value.trim(),
-      region: document.getElementById('f-region').value.trim(),
-      type: document.getElementById('f-type').value.trim(),
-      independent: document.getElementById('f-independent').checked,
-      icon: document.getElementById('f-icon').value,
-      color: selectedColor,
-      flag: document.getElementById('f-flag').value,
-      schedule: document.getElementById('f-schedule').value.trim(),
-      location: document.getElementById('f-location').value.trim(),
-      pay: document.getElementById('f-pay').value.trim(),
-      fulldesc: document.getElementById('f-fulldesc').value.trim(),
-      url: document.getElementById('f-url').value.trim() || '#',
-      steps: formSteps.map(s => s.trim()).filter(s => s.length > 0),
-      customImage: selectedImage
-    };
-    if(editingId !== null){
-      const idx = jobs.findIndex(j => j.id === editingId);
-      if(idx !== -1) jobs[idx] = { ...jobs[idx], ...fields };
-    } else {
-      jobs.unshift({ id: Date.now(), postedAt: new Date().toISOString(), ...fields });
+    const { jobId, applyUrl } = pendingApply || {};
+    if(sb && jobId){
+      try { await sb.from('leads').insert({ job_id: jobId, email }); }
+      catch(e) { console.error('Lead capture failed:', e); }
     }
-    saveJobs();
-    closeAddModal();
-    render();
+    if(jobId) await logClick(jobId);
+    closeModal();
+    if(applyUrl) window.open(applyUrl, '_blank', 'noopener');
   }
 
-  document.getElementById('viewOverlay').addEventListener('click', e => { if(e.target.id === 'viewOverlay') closeView(); });
-  document.getElementById('addOverlay').addEventListener('click', e => { if(e.target.id === 'addOverlay') closeAddModal(); });
-  searchInput.addEventListener('input', render);
-  sortSelect.addEventListener('change', render);
+  function handleSignInClick(){
+    if(currentSession){ handleSignOut(); } else { openModal('signin'); }
+  }
 
-  if(isAdmin){ document.getElementById('adminControls').style.display = 'flex'; }
-  render();
-  loadJobsFromCloud();
-  subscribeToJobUpdates();
-  logPageView();
-  loadTodayApplyCounts();
+  async function handleSignIn(){
+    if(!sb){ setModalMessage('Backend isn\'t connected yet — add your Supabase URL and key to the code.'); return; }
+    const email = document.getElementById('signin-email').value.trim();
+    const password = document.getElementById('signin-password').value;
+    if(!email || !password){ setModalMessage('Enter your email and password.'); return; }
+    const { data, error } = await sb.auth.signInWithPassword({ email, password });
+    if(error){ setModalMessage(error.message); return; }
+    currentSession = data.session;
+    updateNav();
+    loadJobs();
+    closeModal();
+    openModal('post');
+  }
+
+  async function handleSignOut(){
+    if(!sb) return;
+    await sb.auth.signOut();
+    currentSession = null;
+    updateNav();
+    loadJobs();
+  }
+
+  function handlePostClick(){
+    if(currentSession){ openModal('post'); } else { openModal('signin'); }
+  }
+
+  // ---- Jobs ----
+  async function uploadLogoIfProvided(){
+    const fileInput = document.getElementById('post-logo-file');
+    const file = fileInput && fileInput.files[0];
+    if(!file) return null;
+    const ext = file.name.split('.').pop();
+    const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+    const { error: uploadError } = await sb.storage.from('job-logos').upload(path, file);
+    if(uploadError){ console.error('Logo upload failed:', uploadError); return null; }
+    const { data } = sb.storage.from('job-logos').getPublicUrl(path);
+    return data.publicUrl;
+  }
+
+  async function handlePostJob(){
+    if(!sb){ setModalMessage('Backend isn\'t connected yet — add your Supabase URL and key to the code.'); return; }
+    if(!currentSession){ setModalMessage('Please sign in first.'); return; }
+    const company = document.getElementById('post-company').value.trim();
+    const title = document.getElementById('post-title').value.trim();
+    const location = document.getElementById('post-location').value.trim() || 'Remote';
+    const pay = document.getElementById('post-pay').value.trim();
+    const job_type = document.getElementById('post-type').value.trim();
+    const tagsRaw = document.getElementById('post-tags').value.trim();
+    const apply_url = document.getElementById('post-apply-url').value.trim();
+    const description = document.getElementById('post-description').value.trim();
+    const industry = document.getElementById('post-industry').value.trim();
+    const experience = document.getElementById('post-experience').value.trim();
+    const qualification = document.getElementById('post-qualification').value.trim();
+    const functional_area = document.getElementById('post-functional-area').value.trim();
+    const degree_level = document.getElementById('post-degree-level').value.trim();
+    const postedDateRaw = document.getElementById('post-posted-date').value;
+    const posted_at = postedDateRaw ? new Date(postedDateRaw + 'T12:00:00').toISOString() : null;
+
+    if(!company || !title || !apply_url){
+      setModalMessage('Company, job title, and application link are required.');
+      return;
+    }
+    const tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [];
+    const logoUrl = await uploadLogoIfProvided();
+
+    const { error } = await sb.from('jobs').insert({
+      title, company, location, pay, job_type, tags, apply_url,
+      description, industry, experience, qualification, functional_area, degree_level, posted_at,
+      ...(logoUrl ? { logo_url: logoUrl } : {})
+    });
+    if(error){ setModalMessage(error.message); return; }
+    closeModal();
+    loadJobs();
+  }
+
+  function timeAgo(dateStr){
+    const diffMs = Date.now() - new Date(dateStr).getTime();
+    const days = Math.floor(diffMs / 86400000);
+    if(days <= 0) return 'Today';
+    if(days === 1) return '1 day ago';
+    if(days < 7) return `${days} days ago`;
+    const weeks = Math.floor(days / 7);
+    if(weeks === 1) return '1 week ago';
+    return `${weeks} weeks ago`;
+  }
+
+  function jobCardHTML(job, index, arr){
+    const tags = (job.tags || []).map(t => `<span class="job-tag">${t}</span>`).join('');
+    const logoLetter = (job.company || '?').trim().charAt(0).toUpperCase();
+    const logoInner = job.logo_url ? `<img src="${job.logo_url}" alt="${job.company}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">` : logoLetter;
+    const total = arr.length;
+    const reorderControls = currentSession ? `
+      <div style="display:flex;gap:6px;">
+        <button onclick="moveJob('${job.id}','up')" ${index===0?'disabled':''} title="Move up" style="border:1px solid var(--border);background:#fff;border-radius:6px;cursor:pointer;padding:4px 8px;font-size:12px;color:var(--dark);">↑</button>
+        <button onclick="moveJob('${job.id}','down')" ${index===total-1?'disabled':''} title="Move down" style="border:1px solid var(--border);background:#fff;border-radius:6px;cursor:pointer;padding:4px 8px;font-size:12px;color:var(--dark);">↓</button>
+      </div>` : '';
+    return `
+      <div class="job-card">
+        <div class="job-card-top"><div class="job-logo">${logoInner}</div><div style="display:flex;align-items:center;gap:10px;"><div class="job-time">${timeAgo(job.posted_at || job.created_at)}</div>${reorderControls}</div></div>
+        <h3><a href="job-detail.html?id=${job.id}">${job.title}</a></h3>
+        <div class="job-company">${job.company} · ${job.location || 'Remote'}</div>
+        <div class="job-tags">${tags}</div>
+        <div class="job-card-foot"><span class="job-pay">${job.pay || ''}</span><a class="btn btn-outline" href="${job.apply_url}" target="_blank" rel="noopener" onclick="logClick('${job.id}')">Apply here</a></div>
+      </div>`;
+  }
+
+  let currentJobList = [];
+
+  const CATEGORY_KEYWORDS = {
+    'customer-service': ['customer service', 'customer support', 'chat support'],
+    'content-writing': ['content', 'writing', 'writer', 'copywriter'],
+    'marketing': ['marketing'],
+    'data-surveys': ['data', 'survey'],
+    'admin-support': ['admin', 'assistant', 'virtual assistant'],
+    'design': ['design'],
+    'sales': ['sales'],
+    'fully-remote': ['remote']
+  };
+
+  function jobSearchableText(job){
+    return [
+      ...(job.tags || []),
+      job.job_type || '',
+      job.industry || '',
+      job.location || '',
+      job.functional_area || ''
+    ].join(' ').toLowerCase();
+  }
+
+  function updateCategoryCounts(jobList){
+    Object.entries(CATEGORY_KEYWORDS).forEach(([slug, keywords]) => {
+      const count = jobList.filter(job => {
+        const text = jobSearchableText(job);
+        return keywords.some(k => text.includes(k));
+      }).length;
+      const el = document.getElementById(`cat-count-${slug}`);
+      if(el) el.textContent = `${count} job${count === 1 ? '' : 's'}`;
+    });
+  }
+
+  async function loadJobs(){
+    const grid = document.getElementById('job-grid');
+    if(!sb){
+      grid.innerHTML = `<p style="color:var(--text);grid-column:1/-1;text-align:center;">Backend isn't connected yet — add your Supabase URL and key to the code to show live jobs here.</p>`;
+      updateCategoryCounts([]);
+      return;
+    }
+    const { data, error } = await sb.from('jobs').select('*').order('sort_order', { ascending: true, nullsFirst: false }).order('created_at', { ascending: false });
+    if(error){
+      grid.innerHTML = `<p style="color:var(--text);grid-column:1/-1;text-align:center;">Couldn't load jobs — check the Supabase setup.</p>`;
+      updateCategoryCounts([]);
+      return;
+    }
+    if(!data || data.length === 0){
+      grid.innerHTML = `<p style="color:var(--text);grid-column:1/-1;text-align:center;">No jobs posted yet.</p>`;
+      updateCategoryCounts([]);
+      return;
+    }
+    currentJobList = data;
+    grid.innerHTML = data.map(jobCardHTML).join('');
+    updateCategoryCounts(data);
+  }
+
+  async function moveJob(jobId, direction){
+    const index = currentJobList.findIndex(j => j.id === jobId);
+    if(index === -1) return;
+    const swapIndex = direction === 'up' ? index - 1 : index + 1;
+    if(swapIndex < 0 || swapIndex >= currentJobList.length) return;
+
+    const reordered = currentJobList.slice();
+    [reordered[index], reordered[swapIndex]] = [reordered[swapIndex], reordered[index]];
+
+    await Promise.all(reordered.map((job, i) => sb.from('jobs').update({ sort_order: i }).eq('id', job.id)));
+    loadJobs();
+  }
+
+  function toggleNavMenu(){
+    document.getElementById('nav-links').classList.toggle('open');
+  }
+
+  // Expose the handlers used by inline onclick attributes
+  window.openModal = openModal;
+  window.closeModal = closeModal;
+  window.handleSignInClick = handleSignInClick;
+  window.handleSignIn = handleSignIn;
+  window.handlePostClick = handlePostClick;
+  window.handlePostJob = handlePostJob;
+  window.toggleNavMenu = toggleNavMenu;
+  window.logClick = logClick;
+  window.moveJob = moveJob;
+  window.openApplyGate = openApplyGate;
+  window.submitApplyGate = submitApplyGate;
+
+  checkAuth();
+  loadJobs();
+  logPageView('home');
+}
 </script>
 
 </body>
